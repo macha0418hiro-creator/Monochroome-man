@@ -19,6 +19,7 @@ public class FrogMove : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private Transform playerTransform;  //プレイヤーの座標を記録
+    private FrogAttack frogAttack;      //攻撃処理を呼ぶため
     private bool isGrounded = true;     //地面に着いてるか
     private bool isMovingRight = false; //向いてる方向
     private float jumpTimer = 0f;
@@ -28,6 +29,7 @@ public class FrogMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        frogAttack = GetComponent<FrogAttack>();
         jumpTimer = jumpInterval;
 
         //Playerタグのついたオブジェクトから座標を取得
@@ -44,9 +46,22 @@ public class FrogMove : MonoBehaviour
     {
         CheckGround();
 
+        //攻撃処理中は移動処理はしない
+        if(frogAttack != null && frogAttack.IsAttacking)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         if (isGrounded)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+
+            if (CheckPlayerInRange())
+            {
+                frogAttack.TryAttack();
+                return;
+            }
 
             jumpTimer -= Time.deltaTime;
             if(jumpTimer <= 0f)
@@ -59,6 +74,18 @@ public class FrogMove : MonoBehaviour
         }
     }
 
+    //射程距離内にプレイヤーがいるか確認
+    private bool CheckPlayerInRange()
+    {
+        if(playerTransform == null || frogAttack == null) return false;
+        float distance = Vector2.Distance(transform.position, playerTransform.position);
+        return distance <= frogAttack.AttackRange;
+    }
+
+    public void ResetJumpTimer()
+    {
+        jumpTimer = jumpInterval;
+    }
 
     private void Jump()
     {
@@ -68,7 +95,7 @@ public class FrogMove : MonoBehaviour
     }
 
     //プレイヤーの方向に向きを変える
-    private void TargetPlayerDirection()
+    public void TargetPlayerDirection()
     {
         if(playerTransform == null) return;
 
@@ -132,6 +159,12 @@ public class FrogMove : MonoBehaviour
         {
             Gizmos.color = isGrounded ? Color.green : Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
+        }
+
+        if (frogAttack != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, frogAttack.AttackRange);
         }
     }
 
