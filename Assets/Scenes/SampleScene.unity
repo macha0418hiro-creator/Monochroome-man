@@ -263,7 +263,7 @@ Animator:
   m_GameObject: {fileID: 88546762}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 886f81eff70b21346ac1692cbb5e20e7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 957cd0dae7d4afd4e9b1b374790a6ddf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -340,7 +340,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8888889, y: 1}
+    oldSize: {x: 0.9130435, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -362,8 +362,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttributeController
   currentAttribute: 0
   spriteRenderer: {fileID: 88546769}
-  whiteSprite: {fileID: -3575981211884031009, guid: acb881e5a8ff5884cbaa629469a0a5e3, type: 3}
-  blackSprite: {fileID: 346238640466933117, guid: d74aed28b2e69f847ab8563360e4ab61, type: 3}
+  whiteSprite: {fileID: -4972594114087474696, guid: d0dd5a1d4bd4d4f40821b26c57354353, type: 3}
+  blackSprite: {fileID: 4302369676089417382, guid: 294d24b6eb938aa44a336d3b3fe29e65, type: 3}
   damageSensor: {fileID: 17408684}
 --- !u!212 &88546769
 SpriteRenderer:
@@ -414,7 +414,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3575981211884031009, guid: acb881e5a8ff5884cbaa629469a0a5e3, type: 3}
+  m_Sprite: {fileID: -4972594114087474696, guid: d0dd5a1d4bd4d4f40821b26c57354353, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5022,7 +5022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1756500292
 Transform:
   m_ObjectHideFlags: 0
@@ -5033,7 +5033,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 88546763}
@@ -5073,7 +5073,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.16
+  m_Radius: 0.2
 --- !u!114 &1756500294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5136,7 +5136,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -6601691336363857274, guid: 607f9d507d6abe248a6944942ebeb845, type: 3}
+  m_Sprite: {fileID: -9150645638915074190, guid: 4ce089e1dbb7e3b48b85227c99f38cd7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
