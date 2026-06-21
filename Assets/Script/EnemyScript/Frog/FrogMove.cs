@@ -1,27 +1,31 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class FrogMove : MonoBehaviour
 {
     [Header("ジャンプ力設定")]
-    [SerializeField] private float jumpForwardForce = 5.0f; //前方への力
-    [SerializeField] private float jumpUpwardForce = 7.0f;  //上方への力
+    [SerializeField] private float jumpForwardForce = 5.0f;     //前方への力
+    [SerializeField] private float jumpUpwardForce = 7.0f;      //上方への力
 
     [Header("行動間隔")]
-    [SerializeField] private float jumpInterval = 3.0f;     //ジャンプの間隔
+    [SerializeField] private float jumpInterval = 3.0f;         //ジャンプの間隔
+    [SerializeField] private float savePowerDuration = 0.25f;   //ジャンプのため時間
 
     [Header("接触判定関連")]
-    [SerializeField] private Transform groundCheck;         //足元のGameObject
-    [SerializeField] private float checkRadius = 0.2f;      //判定用の円の半径
-    [SerializeField] private string targetTag = "Ground";   //地面のタグ
+    [SerializeField] private Transform groundCheck;             //足元のGameObject
+    [SerializeField] private float checkRadius = 0.2f;          //判定用の円の半径
+    [SerializeField] private string targetTag = "Ground";       //地面のタグ
 
     private Rigidbody2D rb;
     private Animator animator;
-    private Transform playerTransform;  //プレイヤーの座標を記録
-    private FrogAttack frogAttack;      //攻撃処理を呼ぶため
-    private bool isGrounded = true;     //地面に着いてるか
-    private bool isMovingRight = false; //向いてる方向
+    private Transform playerTransform;          //プレイヤーの座標を記録
+    private FrogAttack frogAttack;              //攻撃処理を呼ぶため
+    private bool isGrounded = true;             //地面に着いてるか
+    private bool isMovingRight = false;         //向いてる方向
+    private bool isSaveingPower = false;        //踏ん張り中かの判定
+    private bool wasGroundedLastFrame = true;   //着地検知
     private float jumpTimer = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -46,6 +50,19 @@ public class FrogMove : MonoBehaviour
     {
         CheckGround();
 
+        //地面に着地した瞬間は踏らせる
+        if(!wasGroundedLastFrame && isGrounded && !isSaveingPower)
+        {
+            StartCoroutine(LandRoutine());
+        }
+        wasGroundedLastFrame = isGrounded;
+
+        if(animator != null)
+        {
+            animator.SetBool("isGrounded", isGrounded);
+            animator.SetBool("isJumping", !isGrounded && rb.linearVelocity.y > 0.1f);
+        }
+
         //攻撃処理中は移動処理はしない
         if(frogAttack != null && frogAttack.IsAttacking)
         {
@@ -68,10 +85,39 @@ public class FrogMove : MonoBehaviour
             {
                 TargetPlayerDirection();
 
-                Jump();
+                if (!isSaveingPower)
+                {
+                    StartCoroutine(JumpRoutine());
+                }
+
                 jumpTimer = jumpInterval;
             }
         }
+    }
+
+    //ジャンプ前の踏ん張りモーション用のデータをUnityに送る
+    private IEnumerator JumpRoutine()
+    {
+        isSaveingPower = true;
+        if (animator != null) animator.SetBool("isSavingPower", true);
+
+        yield return new WaitForSeconds(savePowerDuration);
+
+        if (animator != null) animator.SetBool("isSavingPower", false);
+        isSaveingPower = false;
+
+        Jump();
+
+        yield return new WaitForSeconds(savePowerDuration);
+    }
+
+    private IEnumerator LandRoutine()
+    {
+        if (animator != null) animator.SetBool("isSavingPower", true);
+
+        yield return new WaitForSeconds(0.15f);
+
+        if (animator != null) animator.SetBool("isSavingPower", false);
     }
 
     //射程距離内にプレイヤーがいるか確認

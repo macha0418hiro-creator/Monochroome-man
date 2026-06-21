@@ -11,6 +11,10 @@ public class FrogAttack : MonoBehaviour
     [SerializeField] private float attackCooldown = 3f; //次に攻撃するまでの間隔
     [SerializeField] private Transform tongueObject;    //舌のObject
 
+    [Header("ベロのパーツ")]
+    [SerializeField] private Transform tongueTipObject;         //ベロの先端
+    [SerializeField] private SpriteRenderer tongueShaftVolume;  //ベロの伸びる部分
+
     [Header("角度制限設定")]
     [Range(0f, 90f)]
     [SerializeField] private float maxAttackAngle = 45f;
@@ -25,14 +29,13 @@ public class FrogAttack : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
-        lineRenderer = GetComponent<LineRenderer>();
+    {  
         frogMove = GetComponent<FrogMove>();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if(player != null) playerTransform = player.transform;
 
-        if(lineRenderer != null) lineRenderer.enabled = false;
+        SetTongueActive(false);
     }
 
     // Update is called once per frame
@@ -57,17 +60,15 @@ public class FrogAttack : MonoBehaviour
         //攻撃前にプレイヤーの方向を向く
         if (frogMove != null) frogMove.TargetPlayerDirection();
 
+        Animator animator = GetComponent<Animator>();
+        if (animator != null) animator.SetTrigger("doAttack");
+
         Vector3 startPosition = transform.position;
 
         //角度制限内でプレイヤーの位置を計算する
         Vector3 targetPosition = CalculateClampedTargetPosition(startPosition);
 
-        if(lineRenderer != null) lineRenderer.enabled = true;
-        if(tongueObject != null)
-        {
-            tongueObject.gameObject.SetActive(true);
-            tongueObject.position = startPosition;
-        }
+        SetTongueActive(true);
 
         //舌を伸ばす処理
         float progress = 0f;
@@ -76,40 +77,71 @@ public class FrogAttack : MonoBehaviour
             progress += Time.deltaTime * (attackSpeed / attackRange);
             Vector3 currentObjectPos = Vector3.Lerp(startPosition, targetPosition, progress);
 
-            if (tongueObject != null) tongueObject.position = currentObjectPos;
-            if (lineRenderer != null)
-            {
-                lineRenderer.SetPosition(0, transform.position);    //スタートする頂点
-                lineRenderer.SetPosition(1, currentObjectPos);      //終わりの頂点
-            }
+            UpdateTongueTransform(startPosition, currentObjectPos);
+
             yield return null;
         }
 
         //舌を戻す処理
         progress = 0f;
-        Vector3 reachedPosition = tongueObject != null ? tongueObject.position : targetPosition;
+        Vector3 reachedPosition = tongueObject != null ? tongueTipObject.position : targetPosition;
         while(progress < 1f)
         {
             progress += Time.deltaTime * (attackSpeed / attackRange);
             Vector3 currentObjectPos = Vector3.Lerp(reachedPosition, transform.position, progress);
 
-            if(tongueObject != null) tongueObject.position = currentObjectPos;
-            if(lineRenderer != null)
-            {
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, currentObjectPos);
-            }
+            UpdateTongueTransform(startPosition, currentObjectPos);
+
             yield return null;
         }
 
-        if (lineRenderer != null) lineRenderer.enabled = false;
-        if(tongueObject != null) tongueObject.gameObject.SetActive(false);
+        SetTongueActive(false);
 
         yield return new WaitForSeconds(attackCooldown);
 
         isAttacking = false;
 
         if (frogMove != null) frogMove.ResetJumpTimer();
+    }
+
+    //ベロをきれいに伸ばす処理
+    private void UpdateTongueTransform(Vector3 startPos, Vector3 currentTipPos)
+    {
+        //先端の位置を動かす
+        if (tongueTipObject != null) tongueTipObject.position = currentTipPos;
+
+        //根本から先端までの距離と向きを計算
+        Vector3 delta = currentTipPos - startPos;
+        float currentLength = delta.magnitude;
+
+        if (tongueShaftVolume != null)
+        {
+            //胴体の位置を、根本と先端のちょうど中間に配置する
+            tongueShaftVolume.transform.position = startPos + delta * 0.5f;
+
+            //プレイヤーの方向へベロの胴体を傾ける（角度を合わせる）
+            float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
+            tongueShaftVolume.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            Vector2 newSize = tongueShaftVolume.size;
+            newSize.x = currentLength; // 横幅（長さ）をベロの長さに同期させる
+            tongueShaftVolume.size = newSize;
+
+            //BoxCollider2Dを見た目のサイズに合わせる処理
+            BoxCollider2D boxCollider = tongueShaftVolume.GetComponent<BoxCollider2D>();
+            if (boxCollider != null)
+            {
+                //コライダーをスプライトのsizeと同期
+                boxCollider.size = newSize;
+            }
+        }
+    }
+
+    // ベロ全体の表示・非表示を一括で切り替える
+    private void SetTongueActive(bool active)
+    {
+        if (tongueTipObject != null) tongueTipObject.gameObject.SetActive(active);
+        if (tongueShaftVolume != null) tongueShaftVolume.gameObject.SetActive(active);
     }
 
     //制限角度内で舌を伸ばせる範囲を割り出す
