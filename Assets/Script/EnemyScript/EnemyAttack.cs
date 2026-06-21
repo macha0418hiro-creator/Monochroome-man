@@ -27,8 +27,11 @@ public class EnemyAttack : MonoBehaviour
 
         if(playerHealth != null)
         {
+            //自分が子オブジェクトなら親(カエル)の座標を、自分が本体なら自分の座標を渡す
+            Vector3 attackOrigin = transform.parent != null ? transform.parent.position : transform.position;
+
             //ダメージを与える
-            playerHealth.TakeDamage(damage, transform.position);
+            playerHealth.TakeDamage(damage, attackOrigin);
         }
     }
 
@@ -39,7 +42,8 @@ public class EnemyAttack : MonoBehaviour
 
         if (playerHealth != null)
         {
-            playerHealth.TakeDamage(damage, transform.position);
+            Vector3 attackOrigin = transform.parent != null ? transform.parent.position : transform.position;
+            playerHealth.TakeDamage(damage, attackOrigin);
         }
     }
 }

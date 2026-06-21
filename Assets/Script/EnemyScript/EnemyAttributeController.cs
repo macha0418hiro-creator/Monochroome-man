@@ -86,6 +86,12 @@ public class EnemyAttributeController : MonoBehaviour
 
         Debug.Log($"[{gameObject.name}]属性を【{currentAttribute}】に設定し、レイヤーを切り替えました");
 
+        FrogTongueVisual tongueVisual = GetComponentInChildren<FrogTongueVisual>();
+        if(tongueVisual != null)
+        {
+            tongueVisual.ChangeTongueColor(currentAttribute);
+        }
+
     }
 }
 
