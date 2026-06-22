@@ -250,6 +250,7 @@ Transform:
   - {fileID: 17408685}
   - {fileID: 1738192291}
   - {fileID: 1026899306}
+  - {fileID: 2107642194}
   m_Father: {fileID: 1826772770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &88546764
@@ -457,7 +458,7 @@ MonoBehaviour:
   attackRange: 4
   attackSpeed: 8
   attackCooldown: 2
-  tongueObject: {fileID: 0}
+  tongueFirePoint: {fileID: 2107642194}
   tongueTipObject: {fileID: 1303806527}
   tongueShaftVolume: {fileID: 1701753084}
   maxAttackAngle: 45
@@ -4576,8 +4577,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1303806527}
   - {fileID: 1701753083}
+  - {fileID: 1303806527}
   m_Father: {fileID: 88546763}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1026899307
@@ -4906,7 +4907,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5140,7 +5141,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5614,6 +5615,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102160193}
   m_CullTransparentMesh: 1
+--- !u!1 &2107642193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2107642194}
+  m_Layer: 9
+  m_Name: TongueFirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2107642194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107642193}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.18, y: -0.02, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 88546763}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2138731370
 GameObject:
   m_ObjectHideFlags: 0
@@ -5832,7 +5864,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7677509955707186715, guid: 1cfda7e507d49cd4c9176d7ae531f700, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
