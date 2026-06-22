@@ -9,7 +9,7 @@ public class FrogAttack : MonoBehaviour
     [SerializeField] private float attackRange = 3f;    //攻撃を始める距離
     [SerializeField] private float attackSpeed = 0.5f;  //攻撃のスピード
     [SerializeField] private float attackCooldown = 3f; //次に攻撃するまでの間隔
-    [SerializeField] private Transform tongueObject;    //舌のObject
+    [SerializeField] private Transform tongueFirePoint;
 
     [Header("ベロのパーツ")]
     [SerializeField] private Transform tongueTipObject;         //ベロの先端
@@ -63,7 +63,7 @@ public class FrogAttack : MonoBehaviour
         Animator animator = GetComponent<Animator>();
         if (animator != null) animator.SetTrigger("doAttack");
 
-        Vector3 startPosition = transform.position;
+        Vector3 startPosition = tongueFirePoint != null ? tongueFirePoint.position : transform.position;
 
         //角度制限内でプレイヤーの位置を計算する
         Vector3 targetPosition = CalculateClampedTargetPosition(startPosition);
@@ -84,11 +84,11 @@ public class FrogAttack : MonoBehaviour
 
         //舌を戻す処理
         progress = 0f;
-        Vector3 reachedPosition = tongueObject != null ? tongueTipObject.position : targetPosition;
+        Vector3 reachedPosition = tongueTipObject != null ? tongueTipObject.position : targetPosition;
         while(progress < 1f)
         {
             progress += Time.deltaTime * (attackSpeed / attackRange);
-            Vector3 currentObjectPos = Vector3.Lerp(reachedPosition, transform.position, progress);
+            Vector3 currentObjectPos = Vector3.Lerp(reachedPosition, startPosition, progress);
 
             UpdateTongueTransform(startPosition, currentObjectPos);
 
@@ -186,7 +186,7 @@ public class FrogAttack : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Vector3 startPos = transform.position;
+        Vector3 startPos = tongueFirePoint != null ? tongueFirePoint.position : transform.position;
         bool isRight = transform.localScale.x < 0f;
         Vector3 facingDirection = (transform.localScale.x < 0f) ? Vector3.right : Vector3.left;
 
