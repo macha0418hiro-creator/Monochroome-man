@@ -26,6 +26,7 @@ public class StageSelectManager : MonoBehaviour
 
     private int currentStageIndex = 0;                        //現在選択されているステージの番号
     private Vector2 targetPosition;                           //目標座標
+    private bool canPlay = false;                             //画面遷移暴発対策
 
     void Start()
     {
@@ -54,6 +55,15 @@ public class StageSelectManager : MonoBehaviour
 
     void Update()
     {
+        //マウスから指が離されるまで、動かせない処理
+        if (!canPlay)
+        {
+            if(UnityEngine.InputSystem.Pointer.current != null && !UnityEngine.InputSystem.Pointer.current.press.isPressed)
+            {
+                canPlay = true;
+            }
+        }
+
         //目標座標に向かってコンテナ(ステージ画像)を移動させる
         if (stageContainer != null)
         {
@@ -85,7 +95,7 @@ public class StageSelectManager : MonoBehaviour
         currentStageIndex = index;
 
         //スライドの計算(左右どちらに動くか)
-        float targetX = -index * stageSpacing;
+        float targetX = (-index * stageSpacing) - 300f;
         if(stageContainer != null)
         {
             targetPosition = new Vector2(targetX, stageContainer.anchoredPosition.y);
@@ -112,7 +122,7 @@ public class StageSelectManager : MonoBehaviour
             if (indicatorDots[i] != null)
             {
                 ColorBlock colors = indicatorDots[i].colors;
-                //選択中なら白、祖霊がは灰色
+                //選択中なら白、それ以外は灰色
                 colors.normalColor = (i == currentStageIndex) ? Color.white : new Color(0.2f, 0.2f, 0.2f, 1f);
                 colors.selectedColor = colors.normalColor;
                 colors.pressedColor = colors.normalColor;
@@ -124,6 +134,9 @@ public class StageSelectManager : MonoBehaviour
     //中央にあるステージ画像を押したときステージ遷移
     public void OnClickCurrentStagePlay()
     {
+        //クリックが画面遷移後残らないように
+        if (!canPlay) return;
+
         if (currentStageIndex < stages.Count)
         {
             string targetScene = stages[currentStageIndex].sceneName;
