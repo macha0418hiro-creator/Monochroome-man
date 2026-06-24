@@ -17,21 +17,27 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] private TMP_Text stageNameText;          //TextMeshProUGUIに対応
     [SerializeField] private Button leftArrowButton;          //LeftArrowButtonを入れる
     [SerializeField] private Button rightArrowButton;         //RightArrowButtonを入れる
-    [SerializeField] private List<Toggle> indicatorDots;      //下のドットボタンを順番にすべて入れる
+    [SerializeField] private List<Button> indicatorDots;      //下のドットボタンを順番にすべて入れる
 
     [Header("ステージデータの設定")]
     [SerializeField] private List<StageData> stages;          
     [SerializeField] private float stageSpacing = 600f;       //ステージ画像1枚分(横幅＋余白)の移動距離
     [SerializeField] private float moveSpeed = 10f;           //ステージ画像が動くスピード
 
-    private int currentStageIndex = 0;                        // 現在選択されているステージの番号
-    private Vector2 targetPosition;                           // コンテナの目標座標
+    private int currentStageIndex = 0;                        //現在選択されているステージの番号
+    private Vector2 targetPosition;                           //目標座標
 
     void Start()
     {
-        targetPosition = stageContainer.anchoredPosition;
+        //初期位置を記憶
+        if(stageContainer != null)
+        {
+            targetPosition = stageContainer.anchoredPosition;
+        }
+
         UpdateStageUI();
 
+        //矢印ボタンが押されたときの挙動を登録
         if (leftArrowButton != null) leftArrowButton.onClick.AddListener(OnClickLeftArrow);
         if (rightArrowButton != null) rightArrowButton.onClick.AddListener(OnClickRightArrow);
 
@@ -41,16 +47,14 @@ public class StageSelectManager : MonoBehaviour
             if (indicatorDots[i] != null)
             {
                 // トグルの値（ON/OFF）が変わった瞬間を検知する
-                indicatorDots[i].onValueChanged.AddListener((isOn) => {
-                    // クリックされてONになった瞬間だけステージを切り替える
-                    if (isOn) OnClickDot(index);
-                });
+                indicatorDots[i].onClick.AddListener(() => OnClickDot(index));
             }
         }
     }
 
     void Update()
     {
+        //目標座標に向かってコンテナ(ステージ画像)を移動させる
         if (stageContainer != null)
         {
             stageContainer.anchoredPosition = Vector2.Lerp(
@@ -79,8 +83,13 @@ public class StageSelectManager : MonoBehaviour
     private void SelectStage(int index)
     {
         currentStageIndex = index;
+
+        //スライドの計算(左右どちらに動くか)
         float targetX = -index * stageSpacing;
-        targetPosition = new Vector2(targetX, stageContainer.anchoredPosition.y);
+        if(stageContainer != null)
+        {
+            targetPosition = new Vector2(targetX, stageContainer.anchoredPosition.y);
+        }
 
         UpdateStageUI();
     }
@@ -102,14 +111,17 @@ public class StageSelectManager : MonoBehaviour
         {
             if (indicatorDots[i] != null)
             {
-                //現在のステージ番号と同じトグルだけをON(選択中)にする
-                indicatorDots[i].SetIsOnWithoutNotify(i == currentStageIndex);
+                ColorBlock colors = indicatorDots[i].colors;
+                //選択中なら白、祖霊がは灰色
+                colors.normalColor = (i == currentStageIndex) ? Color.white : new Color(0.2f, 0.2f, 0.2f, 1f);
+                colors.selectedColor = colors.normalColor;
+                colors.pressedColor = colors.normalColor;
+                indicatorDots[i].colors = colors;
             }
         }
     }
 
-    //中央にあるステージ画像をタップした時に呼ばれる関数
-    //インスペクターの各ステージボタン(StageButton_1など)の OnClick()にこの関数を登録します
+    //中央にあるステージ画像を押したときステージ遷移
     public void OnClickCurrentStagePlay()
     {
         if (currentStageIndex < stages.Count)
