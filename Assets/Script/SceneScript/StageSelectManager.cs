@@ -123,7 +123,7 @@ public class StageSelectManager : MonoBehaviour
             {
                 ColorBlock colors = indicatorDots[i].colors;
                 //選択中なら白、それ以外は灰色
-                colors.normalColor = (i == currentStageIndex) ? Color.white : new Color(0.2f, 0.2f, 0.2f, 1f);
+                colors.normalColor = (i == currentStageIndex) ? Color.white : new Color(0f, 0f, 0f, 1f);
                 colors.selectedColor = colors.normalColor;
                 colors.pressedColor = colors.normalColor;
                 indicatorDots[i].colors = colors;
