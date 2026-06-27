@@ -57,7 +57,10 @@ public class PlayerContoroller : MonoBehaviour
         }
 
         //プレイヤーの向きを移動方向（左右）に反転させる処理
-        if (moveInput.x != 0)
+        ObjectPuller puller = GetComponent<ObjectPuller>();
+        bool isCurrentlyPulliing = puller != null && puller.IsPulling;
+
+        if (moveInput.x != 0 && !isCurrentlyPulliing)
         {
             transform.localScale = new Vector3(Mathf.Sign(moveInput.x), 1, 1);
         }
@@ -99,8 +102,11 @@ public class PlayerContoroller : MonoBehaviour
     {
         if(context.started)
         {
+            ObjectPuller puller = GetComponent<ObjectPuller>();
+            bool isPulling = puller != null && puller.IsPulling;
+
             //地面にいるときのみジャンプ
-            if(context.started && isGrounded)
+            if (isGrounded && !isPulling)
             {
                 rb.AddForce(Vector2.up * status.jumpForce, ForceMode2D.Impulse);
             }
