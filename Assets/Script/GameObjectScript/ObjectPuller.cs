@@ -13,6 +13,7 @@ public class ObjectPuller : MonoBehaviour
     private Rigidbody2D grabbedBlockRb = null;           //つかんでるブロックのRigidBody
     private Animator animator;
     private Rigidbody2D playerRb;
+    private FixedJoint2D attachJoint = null;             //関節コンポーネント保存(blockの物理演算を残したまま運ぶため)
 
     //他のScriptやAnimaterから状態を受け取る
     public bool IsPulling {  get; private set; } = false;
@@ -82,14 +83,15 @@ public class ObjectPuller : MonoBehaviour
 
                     FixPlayerPosition(grabbedBlock, direction);
 
-                    //つかんでる間、ブロックを子オブジェクトにして位置を固定
-                    grabbedBlock.transform.SetParent(this.transform);
                     //つかんでる間、摩擦を0にする
                     if(grabbedBlockRb != null)
                     {
-                        //Kinematicにすることで、プログラム内の処理でしかオブジェクトがう画家内容にする
-                        grabbedBlockRb.bodyType = RigidbodyType2D.Kinematic;
-                        grabbedBlockRb.linearVelocity = Vector2.zero;
+                        //つかんでる間はx軸を動くようにする
+                        grabbedBlockRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+                        //FixedJoint2Dにより、物理演算をたもったままブロックをつかむ
+                        attachJoint = gameObject.AddComponent<FixedJoint2D>();
+                        attachJoint.connectedBody = grabbedBlockRb;
                     }
 
                     Debug.Log($"{grabbedBlock.name}をつかんだ");
@@ -134,13 +136,27 @@ public class ObjectPuller : MonoBehaviour
     //ブロックを話す処理
     public void ReleaseBlock()
     {
-        if (grabbedBlock != null) grabbedBlock.transform.SetParent(null);
+        if(attachJoint != null)
+        {
+            Destroy(attachJoint);
+            attachJoint = null;
+        }
 
         if(grabbedBlockRb != null)
         {
             grabbedBlockRb.bodyType = RigidbodyType2D.Dynamic;
             //ブロックを離したとき滑らないようx軸の力を0に
-            grabbedBlockRb.linearVelocity = new Vector2(0, grabbedBlockRb.linearVelocity.y);
+            grabbedBlockRb.linearVelocity = Vector2.zero;
+            grabbedBlockRb.angularVelocity = 0f;
+
+            grabbedBlockRb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+        }
+
+        //少し離れた位置にプレイヤーを移す(ブロックにめり込まないよう)
+        if(grabbedBlock != null)
+        {
+            Vector2 direction = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+            FixPlayerPosition(grabbedBlock, direction);
         }
 
         grabbedBlock = null;

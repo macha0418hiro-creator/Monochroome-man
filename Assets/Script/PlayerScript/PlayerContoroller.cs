@@ -82,13 +82,15 @@ public class PlayerContoroller : MonoBehaviour
             if (collider.gameObject == this.gameObject) continue;
 
             //Groundタグのあるものに触れたらジャンプ可能
-            if (collider.CompareTag("Ground"))
+            if (collider.CompareTag("Ground") || collider.CompareTag("PushableBlock"))
             {
-                if(collider.gameObject.layer != this.gameObject.layer)
+                if(Physics2D.GetIgnoreLayerCollision(gameObject.layer, collider.gameObject.layer))
                 {
-                    isGrounded = true;
-                    break;
+                    continue;
                 }
+
+                isGrounded = true;
+                break;
             }
         }
     }
