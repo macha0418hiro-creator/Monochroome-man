@@ -5386,7 +5386,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -6601691336363857274, guid: 607f9d507d6abe248a6944942ebeb845, type: 3}
+  m_Sprite: {fileID: 7161064021492869901, guid: 2485ef1e935a6e54a950f64d1f2b4705, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5482,8 +5482,8 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.75, y: 0.75}
+  m_EdgeRadius: 0.1
 --- !u!1 &1826772769
 GameObject:
   m_ObjectHideFlags: 0
@@ -5993,7 +5993,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 336778ae-0a44-4291-9228-d7884ca92ba2
+    m_ActionId: 8956aba3-533d-431a-aaae-81499f74cc90
     m_ActionName: 'Player/Grab[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 

@@ -23,11 +23,15 @@ public class PlayerAttributeController : MonoBehaviour
     [Header("連動するUI")]
     [SerializeField] private PlayerHpUI hpUI; // UIへの通知用
 
+    private ObjectPuller objectPuller;
+    private PlayerContoroller playerContoroller;
     private Animator animator;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        objectPuller = GetComponent<ObjectPuller>();
+        playerContoroller = GetComponent<PlayerContoroller>();
         SetColor(currentColor);
     }
 
@@ -37,6 +41,19 @@ public class PlayerAttributeController : MonoBehaviour
         //Fキーが押されたときに色を変更
         if(Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
         {
+            //ブロックをつかんでる間は色変更禁止
+            if(objectPuller != null && objectPuller.IsPulling)
+            {
+                Debug.Log("ブロックをつかんでる間は色を変えれません");
+                return;
+            }
+
+            if(animator != null && !animator.GetBool("isGrounded"))
+            {
+                Debug.Log("空中では色を帰れません");
+                return;
+            }
+
             if (currentColor == PlayerColor.White)
             {
                 SetColor(PlayerColor.Black);

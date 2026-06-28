@@ -44,6 +44,12 @@ public class ObjectPuller : MonoBehaviour
             }
             else
             {
+                if(playerRb != null && Mathf.Abs(playerRb.linearVelocity.x) > 0.01f)
+                {
+                    Debug.Log("移動中は手を離せません");
+                    return;
+                }
+
                 ReleaseBlock();
             }
         }
@@ -103,7 +109,7 @@ public class ObjectPuller : MonoBehaviour
     {
         float playerHalfWidth = GetComponent<Collider2D>().bounds.extents.x;
         float blockHalfWidth = block.GetComponent<Collider2D>().bounds.extents.x;
-        float contactDistance = playerHalfWidth + blockHalfWidth + 0.02f;
+        float contactDistance = playerHalfWidth + blockHalfWidth + 0.13f;
 
         float targetX;
         if(direction == Vector2.right)
