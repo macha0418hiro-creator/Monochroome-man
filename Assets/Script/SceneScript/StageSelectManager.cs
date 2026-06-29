@@ -8,8 +8,9 @@ public class StageSelectManager : MonoBehaviour
     [System.Serializable]
     public struct StageData
     {
-        public string stageDisplayName; //画面に表示する名前
-        public string sceneName;        //実際のScene名
+        public string stageDisplayName;     //画面に表示する名前
+        public string sceneName;            //実際のScene名
+        public GameObject clearIndicator;   //クリア済みがわかるUI
     }
 
     [Header("UIの参照")]
@@ -127,6 +128,15 @@ public class StageSelectManager : MonoBehaviour
                 colors.selectedColor = colors.normalColor;
                 colors.pressedColor = colors.normalColor;
                 indicatorDots[i].colors = colors;
+            }
+        }
+
+        for(int i = 0; i < stages.Count; i++)
+        {
+            if (stages[i].clearIndicator != null)
+            {
+                int isCleared = PlayerPrefs.GetInt($"Stage_{i + 1}_Cleared", 0);
+                stages[i].clearIndicator.SetActive(isCleared == 1);
             }
         }
     }
