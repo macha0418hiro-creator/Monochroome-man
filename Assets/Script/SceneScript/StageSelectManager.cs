@@ -10,7 +10,6 @@ public class StageSelectManager : MonoBehaviour
     {
         public string stageDisplayName;     //画面に表示する名前
         public string sceneName;            //実際のScene名
-        public GameObject clearIndicator;   //クリア済みがわかるUI
     }
 
     [Header("UIの参照")]
@@ -28,6 +27,12 @@ public class StageSelectManager : MonoBehaviour
     private int currentStageIndex = 0;                        //現在選択されているステージの番号
     private Vector2 targetPosition;                           //目標座標
     private bool canPlay = false;                             //画面遷移暴発対策
+
+    //シーンが読み込まれた際UIを最新状態にする
+    private void OnEnable()
+    {
+        UpdateStageUI();
+    }
 
     void Start()
     {
@@ -130,16 +135,9 @@ public class StageSelectManager : MonoBehaviour
                 indicatorDots[i].colors = colors;
             }
         }
-
-        for(int i = 0; i < stages.Count; i++)
-        {
-            if (stages[i].clearIndicator != null)
-            {
-                int isCleared = PlayerPrefs.GetInt($"Stage_{i + 1}_Cleared", 0);
-                stages[i].clearIndicator.SetActive(isCleared == 1);
-            }
-        }
     }
+
+    
 
     //中央にあるステージ画像を押したときステージ遷移
     public void OnClickCurrentStagePlay()
@@ -161,6 +159,20 @@ public class StageSelectManager : MonoBehaviour
             {
                 Debug.LogWarning("遷移先のScene名が設定されていません！");
             }
+        }
+    }
+
+    [ContextMenu("Delete Save Data")]
+    public void DeleteSaveData()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        Debug.Log("セーブデータを初期化しました");
+
+        StageSelectPanel[] allPanels = Object.FindObjectsByType<StageSelectPanel>(FindObjectsInactive.Include);
+        foreach(var panel in allPanels)
+        {
+            panel.UpdateItemUI();
         }
     }
 }
