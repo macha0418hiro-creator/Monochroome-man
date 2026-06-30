@@ -239,6 +239,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136626026}
   m_CullTransparentMesh: 1
+--- !u!1 &359991672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 359991673}
+  m_Layer: 5
+  m_Name: GameObject (Stage1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &359991673
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359991672}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1970095526}
+  - {fileID: 1234141467}
+  m_Father: {fileID: 1903739657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 50, y: 50}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &367717369
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +691,7 @@ GameObject:
   - component: {fileID: 504483330}
   - component: {fileID: 504483334}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Button (Stage2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -808,6 +845,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageSelectPanel
   stageNumber: 2
   clearIndicator: {fileID: 2027700219}
+  whiteGemImage: {fileID: 0}
+  blackGemImage: {fileID: 0}
+  whiteGemColorSprite: {fileID: 7479642271789056252, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  whiteGemGraySprite: {fileID: 602690602, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  blackGemColorSprite: {fileID: 67756102831307358, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  blackGemGraySprite: {fileID: -92226637, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
 --- !u!1 &582359305
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,7 +866,7 @@ GameObject:
   - component: {fileID: 582359307}
   - component: {fileID: 582359311}
   m_Layer: 5
-  m_Name: Button (3)
+  m_Name: Button (Stage4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -977,6 +1020,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageSelectPanel
   stageNumber: 4
   clearIndicator: {fileID: 1905816513}
+  whiteGemImage: {fileID: 0}
+  blackGemImage: {fileID: 0}
+  whiteGemColorSprite: {fileID: 7479642271789056252, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  whiteGemGraySprite: {fileID: 602690602, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  blackGemColorSprite: {fileID: 67756102831307358, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  blackGemGraySprite: {fileID: -92226637, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
 --- !u!1 &797458676
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,7 +1041,7 @@ GameObject:
   - component: {fileID: 797458678}
   - component: {fileID: 797458682}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Button (Stage3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1146,6 +1195,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageSelectPanel
   stageNumber: 3
   clearIndicator: {fileID: 814685954}
+  whiteGemImage: {fileID: 0}
+  blackGemImage: {fileID: 0}
+  whiteGemColorSprite: {fileID: 7479642271789056252, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  whiteGemGraySprite: {fileID: 602690602, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  blackGemColorSprite: {fileID: 67756102831307358, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  blackGemGraySprite: {fileID: -92226637, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
 --- !u!1 &814685954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,7 +1218,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &814685955
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1343,16 +1398,12 @@ MonoBehaviour:
   stages:
   - stageDisplayName: Test
     sceneName: SampleScene
-    clearIndicator: {fileID: 0}
   - stageDisplayName: Test2
     sceneName: Stage2
-    clearIndicator: {fileID: 0}
   - stageDisplayName: Test3
     sceneName: Stage3
-    clearIndicator: {fileID: 0}
   - stageDisplayName: Test4
     sceneName: Stage4
-    clearIndicator: {fileID: 0}
   stageSpacing: 600
   moveSpeed: 10
 --- !u!1 &1063689309
@@ -1741,6 +1792,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1234141464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1234141467}
+  - component: {fileID: 1234141466}
+  - component: {fileID: 1234141465}
+  m_Layer: 5
+  m_Name: Image(BlackGem)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1234141465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234141464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -92226637, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1234141466
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234141464}
+  m_CullTransparentMesh: 1
+--- !u!224 &1234141467
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234141464}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.8, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 359991673}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 56, y: -266}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1246967988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2056,7 +2182,7 @@ GameObject:
   - component: {fileID: 1626190165}
   - component: {fileID: 1626190169}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button (Stage1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2210,6 +2336,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageSelectPanel
   stageNumber: 1
   clearIndicator: {fileID: 1777960215}
+  whiteGemImage: {fileID: 1970095524}
+  blackGemImage: {fileID: 1234141465}
+  whiteGemColorSprite: {fileID: 7479642271789056252, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  whiteGemGraySprite: {fileID: 602690602, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  blackGemColorSprite: {fileID: 67756102831307358, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  blackGemGraySprite: {fileID: -92226637, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
 --- !u!1 &1777960215
 GameObject:
   m_ObjectHideFlags: 0
@@ -2227,7 +2359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1777960216
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2376,6 +2508,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1166030679}
+  - {fileID: 359991673}
   - {fileID: 1090936366}
   - {fileID: 1246967989}
   - {fileID: 136626027}
@@ -2404,7 +2537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1905816514
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2644,6 +2777,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952070980}
   m_CullTransparentMesh: 1
+--- !u!1 &1970095523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1970095526}
+  - component: {fileID: 1970095525}
+  - component: {fileID: 1970095524}
+  m_Layer: 5
+  m_Name: Image(WhiteGem)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1970095524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970095523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 602690602, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1970095525
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970095523}
+  m_CullTransparentMesh: 1
+--- !u!224 &1970095526
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970095523}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.8, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 359991673}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -40, y: -266}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2027700219
 GameObject:
   m_ObjectHideFlags: 0
@@ -2661,7 +2869,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2027700220
 RectTransform:
   m_ObjectHideFlags: 0
