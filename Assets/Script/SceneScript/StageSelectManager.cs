@@ -10,6 +10,14 @@ public class StageSelectManager : MonoBehaviour
     {
         public string stageDisplayName;     //画面に表示する名前
         public string sceneName;            //実際のScene名
+
+        [Header("このステージの白宝石のSprite")]
+        public Sprite whiteGemColorSprite;
+        public Sprite whiteGemGraySprite;
+
+        [Header("このステージの黒宝石のSprite")]
+        public Sprite blackGemColorSprite;
+        public Sprite blackGemGraySprite;
     }
 
     [Header("UIの参照")]
@@ -18,6 +26,10 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] private Button leftArrowButton;          //LeftArrowButtonを入れる
     [SerializeField] private Button rightArrowButton;         //RightArrowButtonを入れる
     [SerializeField] private List<Button> indicatorDots;      //下のドットボタンを順番にすべて入れる
+
+    [Header("宝石UIオブジェクト")]
+    [SerializeField] private Image centerWhiteGemImage;
+    [SerializeField] private Image centerBlackGemImage;
 
     [Header("ステージデータの設定")]
     [SerializeField] private List<StageData> stages;          
@@ -135,6 +147,27 @@ public class StageSelectManager : MonoBehaviour
                 indicatorDots[i].colors = colors;
             }
         }
+
+        //宝石の取得状況の切り替え
+        if (currentStageIndex < stages.Count)
+        {
+            int stageNum = currentStageIndex + 1;
+            StageData currentStage = stages[currentStageIndex];
+
+            //白宝石
+            if (centerWhiteGemImage != null)
+            {
+                int hasWhiteGem = PlayerPrefs.GetInt($"Stage_{stageNum}_Gem_White_Collected", 0);
+                centerWhiteGemImage.sprite = (hasWhiteGem == 1) ? currentStage.whiteGemColorSprite : currentStage.whiteGemGraySprite;
+            }
+
+            //黒宝石
+            if (centerBlackGemImage != null)
+            {
+                int hasBlackGem = PlayerPrefs.GetInt($"Stage_{stageNum}_Gem_Black_Collected", 0);
+                centerBlackGemImage.sprite = (hasBlackGem == 1) ? currentStage.blackGemColorSprite : currentStage.blackGemGraySprite;
+            }
+        }
     }
 
     
@@ -174,5 +207,7 @@ public class StageSelectManager : MonoBehaviour
         {
             panel.UpdateItemUI();
         }
+
+        UpdateStageUI();
     }
 }
