@@ -35,6 +35,11 @@ public class PlayerContoroller : MonoBehaviour
     // Update is called once per frame
     void Update() 
     {
+        if (PauseManager.IsPaused)
+        {
+            return;
+        }
+
         //ダメージを受けて吹っ飛び中（IsKnockbackingがtrue）なら、以下の移動速度上書きを行わない
         if (playerHealth != null && playerHealth.IsKnockbacking)
         {
@@ -106,6 +111,11 @@ public class PlayerContoroller : MonoBehaviour
         {
             ObjectPuller puller = GetComponent<ObjectPuller>();
             bool isPulling = puller != null && puller.IsPulling;
+
+            if (PauseManager.IsPaused)
+            {
+                return;
+            }
 
             //地面にいるときのみジャンプ
             if (isGrounded && !isPulling)

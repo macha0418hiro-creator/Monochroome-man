@@ -38,6 +38,11 @@ public class PlayerAttributeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseManager.IsPaused)
+        {
+            return;
+        }
+
         //Fキーが押されたときに色を変更
         if(Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
         {
