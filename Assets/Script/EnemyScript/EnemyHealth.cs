@@ -43,5 +43,14 @@ public class EnemyHealth : MonoBehaviour
         {
             Debug.Log($"Enemy {gameObject.name}を倒した");
         }
+
+        if(transform.parent != null)
+        {
+            Destroy(transform.parent.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
