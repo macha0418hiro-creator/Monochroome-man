@@ -10,6 +10,12 @@ public abstract class BaseBossWizard : MonoBehaviour
     [Header("行動の間隔")]
     [SerializeField] private float intervalTime = 1.5f;
 
+    [Header("攻撃A(追尾弾)のGameObject")]
+    [SerializeField] private GameObject homingBulletObject;
+
+    [Header("攻撃B(配置弾)のGameObject")]
+    [SerializeField] private GameObject placedBulletObject;
+
     protected int lastAttackIndex = -1;     //前回使った技を記録
     protected int lastTeleportIndex = -1;   //前回のテレポート場所を記録
     protected bool isActionRunning = false;
@@ -137,6 +143,20 @@ public abstract class BaseBossWizard : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} の基本攻撃A");
 
+        if (homingBulletObject != null)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                //弾を生成する処理
+                GameObject bulletObj = Instantiate(homingBulletObject, transform.position, Quaternion.identity);
+
+                //レイヤーの同期
+                bulletObj.layer = this.gameObject.layer;
+
+                yield return new WaitForSeconds(0.3f);
+            }
+        }
+
         yield return new WaitForSeconds(1.0f);
         isActionRunning = false;
     }
@@ -144,6 +164,50 @@ public abstract class BaseBossWizard : MonoBehaviour
     protected IEnumerator AttackB()
     {
         Debug.Log($"{gameObject.name} の基本攻撃B");
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null && placedBulletObject != null)
+        {
+            Transform playerTransform = player.transform;
+
+            //生成した弾をリストで記憶
+            List<PlacedBullet> spawnedBullets = new List<PlacedBullet>();
+
+            int bulletCount = 5;
+            float radius = 2f;
+
+            //ボスの周囲の空中に弾を配置
+            for (int i = 0; i < bulletCount; i++)
+            {
+                //弾の座標を作る処理
+                float angle = (i - (bulletCount - 1) / 2f) * 30f;
+                Vector3 offset = Quaternion.Euler(0, 0, angle) * Vector3.up * radius;
+                Vector3 spawnPosition = transform.position + offset;
+
+                GameObject bulletObj = Instantiate(placedBulletObject, spawnPosition, Quaternion.identity);
+                bulletObj.layer = this.gameObject.layer;
+
+                //生成した弾を取得してリストに貯める
+                PlacedBullet bulletScript = bulletObj.GetComponent<PlacedBullet>();
+                if (bulletScript != null)
+                {
+                    spawnedBullets.Add(bulletScript);
+                }
+            }
+
+            yield return new WaitForSeconds(1.0f);
+
+            //発射の合図を送る処理
+            foreach (PlacedBullet bullet in spawnedBullets)
+            {
+                if (bullet != null && playerTransform != null)
+                {
+                    // 弾側のスクリプトにプレイヤーの現在位置を渡して攻撃
+                    bullet.Launch(playerTransform.position);
+                }
+            }
+        }
 
         yield return new WaitForSeconds(1.0f);
         isActionRunning = false;
