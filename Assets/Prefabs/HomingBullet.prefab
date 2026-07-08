@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbdfd84737966284b8522d314b742617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HomingBullet
-  speed: 1
+  speed: 8
   rotateSpeed: 90
   homingDuration: 1.5
 --- !u!50 &7117448431727132861
