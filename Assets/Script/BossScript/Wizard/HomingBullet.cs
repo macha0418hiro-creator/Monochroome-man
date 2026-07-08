@@ -47,10 +47,16 @@ public class HomingBullet : MonoBehaviour
             rb.angularVelocity = 0f;
         }
 
-        rb.linearVelocity = transform.right * rotateSpeed;
+        rb.linearVelocity = transform.right * speed;
     }
 
+    //画面外の弾を削除する処理
     private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(gameObject);
     }

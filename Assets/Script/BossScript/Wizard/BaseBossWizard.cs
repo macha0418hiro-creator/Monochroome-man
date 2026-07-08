@@ -150,8 +150,8 @@ public abstract class BaseBossWizard : MonoBehaviour
                 //弾を生成する処理
                 GameObject bulletObj = Instantiate(homingBulletObject, transform.position, Quaternion.identity);
 
-                //レイヤーの同期
-                bulletObj.layer = this.gameObject.layer;
+                Transform bossSensor = this.transform.Find("DamageSensor");
+                bulletObj.layer = bossSensor.gameObject.layer;
 
                 yield return new WaitForSeconds(0.3f);
             }
@@ -186,7 +186,9 @@ public abstract class BaseBossWizard : MonoBehaviour
                 Vector3 spawnPosition = transform.position + offset;
 
                 GameObject bulletObj = Instantiate(placedBulletObject, spawnPosition, Quaternion.identity);
-                bulletObj.layer = this.gameObject.layer;
+
+                Transform bossSensor = this.transform.Find("DamageSensor");
+                bulletObj.layer = bossSensor.gameObject.layer;
 
                 //生成した弾を取得してリストに貯める
                 PlacedBullet bulletScript = bulletObj.GetComponent<PlacedBullet>();
