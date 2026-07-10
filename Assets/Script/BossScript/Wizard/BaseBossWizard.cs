@@ -143,12 +143,23 @@ public abstract class BaseBossWizard : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} の基本攻撃A");
 
-        if (homingBulletObject != null)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null && homingBulletObject != null)
         {
             for (int i = 0; i < 3; i++)
             {
+                LookAtPlayer(player.transform.position);
+
+                //プレイヤーのいる方向を計算
+                Vector3 direction = player.transform.position - transform.position;
+
+                //プレイヤーの方向を向くための角度計算
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                Quaternion spawnRotation = Quaternion.Euler(0, 0, angle);
+
                 //弾を生成する処理
-                GameObject bulletObj = Instantiate(homingBulletObject, transform.position, Quaternion.identity);
+                GameObject bulletObj = Instantiate(homingBulletObject, transform.position, spawnRotation);
 
                 Transform bossSensor = this.transform.Find("DamageSensor");
                 bulletObj.layer = bossSensor.gameObject.layer;
@@ -169,6 +180,8 @@ public abstract class BaseBossWizard : MonoBehaviour
 
         if (player != null && placedBulletObject != null)
         {
+            LookAtPlayer(player.transform.position);
+
             Transform playerTransform = player.transform;
 
             //生成した弾をリストで記憶
@@ -217,6 +230,19 @@ public abstract class BaseBossWizard : MonoBehaviour
 
     protected abstract IEnumerator CustomAttackWithVariation();
     protected abstract IEnumerator UniqueSpecialAttack();
+
+    //プレイヤーの方向に反転させる処理
+    protected void LookAtPlayer(Vector3 playerPosition)
+    {
+        if(playerPosition.x > transform.position.x)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+    }
 }
 
 

@@ -72,4 +72,32 @@ public class AreaAttackEffect : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    private void OnDrawGizmos()
+    {
+        // 白ボス用：円の範囲を描画
+        CircleCollider2D circle = GetComponent<CircleCollider2D>();
+        if (circle != null && circle.enabled)
+        {
+            Gizmos.color = Color.red; // 攻撃中は赤線
+            Gizmos.DrawWireSphere(transform.position, circle.radius);
+        }
+
+        // 黒ボス用：PolygonColliderのすべての線を繋いで描画
+        PolygonCollider2D poly = GetComponent<PolygonCollider2D>();
+        if (poly != null && poly.enabled)
+        {
+            Gizmos.color = Color.purple; // 黒ボス（ノワール）は紫線
+            for (int i = 0; i < poly.pathCount; i++)
+            {
+                Vector2[] pathPoints = poly.GetPath(i);
+                for (int j = 0; j < pathPoints.Length; j++)
+                {
+                    Vector3 p1 = transform.TransformPoint(pathPoints[j]);
+                    Vector3 p2 = transform.TransformPoint(pathPoints[(j + 1) % pathPoints.Length]);
+                    Gizmos.DrawLine(p1, p2);
+                }
+            }
+        }
+    }
 }
