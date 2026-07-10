@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HomingBullet
   speed: 8
-  rotateSpeed: 90
+  rotateSpeed: 60
   homingDuration: 1.5
 --- !u!50 &7117448431727132861
 Rigidbody2D:
