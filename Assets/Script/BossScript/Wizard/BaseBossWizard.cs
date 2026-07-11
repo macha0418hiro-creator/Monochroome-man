@@ -70,7 +70,8 @@ public abstract class BaseBossWizard : MonoBehaviour
     //攻撃をランダムに決める処理
     private void ChooseNextAttack()
     {
-        int totalAttacks = 4;
+        bool isSpecialPlace = (currentPointIndex == 0);
+        int totalAttacks = isSpecialPlace ? 4 : 3;
         List<int> availableAttacks = new List<int>();
 
         for (int i = 0; i < totalAttacks; i++) 
@@ -80,6 +81,13 @@ public abstract class BaseBossWizard : MonoBehaviour
             {
                 availableAttacks.Add(i);
             }
+        }
+
+        // もし候補が空(専用技を専用の位置以外で選んだら)全技からランダム
+        if (availableAttacks.Count == 0)
+        {
+            Debug.Log("技が空");
+            for (int i = 0; i < totalAttacks; i++) availableAttacks.Add(i);
         }
 
         //前回と同じでない技の中からランダムに選ばれる
@@ -99,6 +107,8 @@ public abstract class BaseBossWizard : MonoBehaviour
             case 3: StartCoroutine(UniqueSpecialAttack()); break;           //キャラ専用技
         }
     }
+
+    protected int currentPointIndex = -1;   //現在地を記録するための変数
 
     //ランダムな位置へテレポート
     private void TeleportToRandomPoint()
@@ -122,6 +132,8 @@ public abstract class BaseBossWizard : MonoBehaviour
         //前回と同じでない位置の中からランダムに選ばれる
         int nextPointIndex = availablePoints[Random.Range(0, availablePoints.Count)];
         lastTeleportIndex = nextPointIndex;
+
+        currentPointIndex = nextPointIndex; //現在の位置を記録
 
         StartCoroutine(TeleportRoutine(teleportPoints[nextPointIndex].position));
     }
@@ -236,11 +248,11 @@ public abstract class BaseBossWizard : MonoBehaviour
     {
         if(playerPosition.x > transform.position.x)
         {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
         else
         {
-            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
 }
