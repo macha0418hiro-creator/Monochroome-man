@@ -49,11 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AreaAttackEffect
   setupForWhiteBoss:
-    warningSprite: {fileID: 7254853403405692345, guid: 9e24881a3191eeb42bb8e9d6a81df9d5, type: 3}
-    activeSprite: {fileID: -6601691336363857274, guid: 607f9d507d6abe248a6944942ebeb845, type: 3}
+    warningSprite: {fileID: -4411691911250410411, guid: 8f12fbd37b8f475449883f7ccc3708ee, type: 3}
+    activeSprite: {fileID: 2441297081737036501, guid: 85f8b69a586f06543a820f2ecb042114, type: 3}
   setupForBlackBoss:
-    warningSprite: {fileID: 1631023578386751497, guid: 359061786b85f7948a8b49379d1dd318, type: 3}
-    activeSprite: {fileID: 4457835537561387818, guid: 5c1f716fc7e849a43a50ae67185ed9b7, type: 3}
+    warningSprite: {fileID: 2079145724852191276, guid: dd08ab383ad671941aa8c8e0a1e00421, type: 3}
+    activeSprite: {fileID: -399951178488060111, guid: 61b7acac6012a504f8a94c50ee2a9abc, type: 3}
   attackRadius: 4
   warningDuration: 1.5
   attackDuration: 1

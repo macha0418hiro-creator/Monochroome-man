@@ -39,7 +39,7 @@ public class Noir : BaseBossWizard
 
             Quaternion downRotation = Quaternion.Euler(0, 0, -90f);
 
-            GameObject bulletObj = Instantiate(explosiveBulletObject, transform.position, downRotation);
+            GameObject bulletObj = Instantiate(explosiveBulletObject, (transform.position - Vector3.up * 2), downRotation);
 
             Transform bossSensor = this.transform.Find("DamageSensor");
             bulletObj.layer = bossSensor.gameObject.layer;

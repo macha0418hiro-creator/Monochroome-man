@@ -157,6 +157,8 @@ public abstract class BaseBossWizard : MonoBehaviour
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
+        bool isWhiteBoss = gameObject.name.Contains("Blanc");
+
         if (player != null && homingBulletObject != null)
         {
             for (int i = 0; i < 3; i++)
@@ -172,6 +174,12 @@ public abstract class BaseBossWizard : MonoBehaviour
 
                 //弾を生成する処理
                 GameObject bulletObj = Instantiate(homingBulletObject, transform.position, spawnRotation);
+
+                HomingBullet bulletScript = bulletObj.GetComponent<HomingBullet>();
+                if(bulletScript != null)
+                {
+                    bulletScript.SetUpBullet(isWhiteBoss);
+                }
 
                 Transform bossSensor = this.transform.Find("DamageSensor");
                 bulletObj.layer = bossSensor.gameObject.layer;
@@ -189,6 +197,8 @@ public abstract class BaseBossWizard : MonoBehaviour
         Debug.Log($"{gameObject.name} の基本攻撃B");
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        bool isWhiteBoss = gameObject.name.Contains("Blanc");
 
         if (player != null && placedBulletObject != null)
         {
@@ -212,15 +222,15 @@ public abstract class BaseBossWizard : MonoBehaviour
 
                 GameObject bulletObj = Instantiate(placedBulletObject, spawnPosition, Quaternion.identity);
 
+                PlacedBullet bulletScript = bulletObj.GetComponent<PlacedBullet>();
+                if(bulletScript != null)
+                {
+                    bulletScript.SetUpBullet(isWhiteBoss);
+                    spawnedBullets.Add(bulletScript);       //生成した弾を取得してリストに貯める
+                }
+
                 Transform bossSensor = this.transform.Find("DamageSensor");
                 bulletObj.layer = bossSensor.gameObject.layer;
-
-                //生成した弾を取得してリストに貯める
-                PlacedBullet bulletScript = bulletObj.GetComponent<PlacedBullet>();
-                if (bulletScript != null)
-                {
-                    spawnedBullets.Add(bulletScript);
-                }
             }
 
             yield return new WaitForSeconds(1.0f);
