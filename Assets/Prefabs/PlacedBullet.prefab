@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -3578295701615830816, guid: d8cc93566fc087a4687124334626fdd9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,7 +130,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_Direction: 0
 --- !u!114 &604730914633092035
 MonoBehaviour:
@@ -144,6 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b209745e52d444f81127a42a7959d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlacedBullet
+  setupForWhiteBoss:
+    bulletSprite: {fileID: -3578295701615830816, guid: d8cc93566fc087a4687124334626fdd9, type: 3}
+  setupForBlackBoss:
+    bulletSprite: {fileID: -5544290051392447022, guid: 8ce3d0ea8f6aef24993a800640d549a4, type: 3}
   speed: 8
 --- !u!50 &4078244257703769245
 Rigidbody2D:
