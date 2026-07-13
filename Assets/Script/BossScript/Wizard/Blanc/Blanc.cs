@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class Blanc : BaseBossWizard
 {
@@ -8,6 +9,9 @@ public class Blanc : BaseBossWizard
 
     [Header("専用技Object")]
     [SerializeField] private GameObject residualBeamObject;
+    [SerializeField] private GameObject beamFloorObject;
+
+    [SerializeField] private float floorOffset = 0f;
 
     protected override IEnumerator CustomAttackWithVariation()
     {
@@ -38,19 +42,35 @@ public class Blanc : BaseBossWizard
             yield return new WaitForSeconds(0.8f); // 溜め時間
 
             float floorY = 9f; //ステージの床のY座標
-            float spawnY = (transform.position.y + floorY) / 2f;    //ビームを伸ばすための中間地点
-            Vector3 targetFloorPosition = new Vector3(transform.position.x, floorY, 0f);
+            float actualFloorY = floorY + floorOffset;
+            
+            Vector3 bossPos = transform.position;
 
-            GameObject beamFloorObj = Instantiate(residualBeamObject, targetFloorPosition, Quaternion.identity);
+            //ビームの最終的な中心点(Y座標)をはじめから計算しておく
+            float finalBeamCenterY = (bossPos.y + actualFloorY) / 2f;
+            //ビームが完全に伸びきったときの最大の長さ(高さの差分)
+            float totalBeamLength = bossPos.y - actualFloorY;
+
+            GameObject beamObj = Instantiate(residualBeamObject, bossPos, Quaternion.identity);
 
             Transform bossSensor = this.transform.Find("DamageSensor");
-            beamFloorObj.layer = bossSensor.gameObject.layer;
+            beamObj.layer = bossSensor.gameObject.layer;
 
-            Vector3 originalScale = beamFloorObj.transform.localScale;
-            beamFloorObj.transform.localScale = new Vector3(originalScale.x, 0f, originalScale.z);
+            //画像サイズを正確にとるための処理
+            float spriteHeight = 1f;
+            SpriteRenderer beamSR = beamObj.GetComponent<SpriteRenderer>();
+            if (beamSR != null && beamSR.sprite != null)
+            {
+                spriteHeight = beamSR.sprite.bounds.size.y;
+            }
 
-            Collider2D beamCollider = beamFloorObj.GetComponent<Collider2D>();
-            if (beamCollider != null) beamCollider.enabled = false;
+            float targetScaleY = totalBeamLength / spriteHeight;
+
+            Vector3 originalScale = beamObj.transform.localScale;
+            beamObj.transform.localScale = new Vector3(originalScale.x, 0f, originalScale.z);
+
+            Collider2D beamCollider = beamObj.GetComponent<Collider2D>();
+            if (beamCollider != null) beamCollider.enabled = true;
 
             //ビームを伸ばす(予兆から本番へ)
             float duration = 0.5f;
@@ -59,17 +79,29 @@ public class Blanc : BaseBossWizard
             {
                 elapsed += Time.deltaTime;
                 float progress = elapsed / duration;
-                if (beamFloorObj != null)
+                if (beamObj != null)
                 {
-                    beamFloorObj.transform.localScale = new Vector3(originalScale.x, originalScale.y * progress, originalScale.z);
+                    beamObj.transform.localScale = new Vector3(originalScale.x, targetScaleY * progress, originalScale.z);
+
+                    float currentCenterY = Mathf.Lerp(bossPos.y, finalBeamCenterY, progress);
+                    beamObj.transform.position = new Vector3(bossPos.x, currentCenterY, bossPos.z);
                 }
                 yield return null;
             }
 
-            //完全に伸びきったら、ダメージ判定
-            if (beamFloorObj != null && beamCollider != null)
+            //完全に伸びきったらビームの位置を固定
+            if (beamObj != null)
             {
-                beamCollider.enabled = true;
+                beamObj.transform.position = new Vector3(bossPos.x, finalBeamCenterY, bossPos.z);
+                beamObj.transform.localScale = new Vector3(originalScale.x, targetScaleY, originalScale.z);
+            }
+
+            if(beamFloorObject != null)
+            {
+                Vector3 floorPosition = new Vector3(bossPos.x, actualFloorY, 0f);
+
+                GameObject floorFireObj = Instantiate(beamFloorObject, floorPosition, Quaternion.identity);
+                floorFireObj.layer = bossSensor.gameObject.layer;
             }
 
             // ビームが接地して燃え続ける時間を待つ
