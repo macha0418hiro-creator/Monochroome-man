@@ -842,6 +842,8 @@ MonoBehaviour:
   placedBulletObject: {fileID: 7686361612675064438, guid: a3f01a1cccd65f6458e6f697893c7905, type: 3}
   areaAttackObject: {fileID: 8897128675620116415, guid: 41891b40424d5774cbdcf6b609eac469, type: 3}
   residualBeamObject: {fileID: 1987961339801951959, guid: 8ce25aade928be34db4dcfa69f68fa2c, type: 3}
+  beamFloorObject: {fileID: 4763957513017091996, guid: 268dbd652d31b254aaa476999175dc0e, type: 3}
+  floorOffset: -1
 --- !u!58 &293240597
 CircleCollider2D:
   m_ObjectHideFlags: 0
