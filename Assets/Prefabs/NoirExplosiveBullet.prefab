@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 187222666875602753}
   - component: {fileID: 7382911578682921701}
   - component: {fileID: 3197891110260937799}
+  - component: {fileID: 2811358557287254798}
   m_Layer: 0
   m_Name: NoirExplosiveBullet
   m_TagString: Untagged
@@ -82,7 +83,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5290875642394689560, guid: 0c6e1dc4a1607d44692c9e5e96984611, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -171,3 +172,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExplosiveBullet
   speed: 8
   explosionEffectObject: {fileID: 2869899476128592412, guid: 51faf06cc9325654e97aaf9e9d611f0d, type: 3}
+--- !u!95 &2811358557287254798
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4435019291734934268}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8a55a19e217b40a48bbbd580f10af8dc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -664,7 +664,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7479642271789056252, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -739,6 +739,7 @@ GameObject:
   - component: {fileID: 293240594}
   - component: {fileID: 293240595}
   - component: {fileID: 293240597}
+  - component: {fileID: 293240598}
   m_Layer: 9
   m_Name: Blanc
   m_TagString: Untagged
@@ -809,7 +810,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 40429859907665048, guid: 01f20ffa30e9827489dccb9725bc490d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -880,6 +881,28 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!95 &293240598
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293240592}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: db09b921aca369f43b382214e5059d40, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &356048832
 GameObject:
   m_ObjectHideFlags: 0
@@ -4385,7 +4408,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 67756102831307358, guid: ece2db3faca78aa4a9afb2258f5378f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6008,6 +6031,7 @@ GameObject:
   - component: {fileID: 1024126172}
   - component: {fileID: 1024126173}
   - component: {fileID: 1024126175}
+  - component: {fileID: 1024126176}
   m_Layer: 10
   m_Name: Noir
   m_TagString: Untagged
@@ -6078,7 +6102,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3546949688139594580, guid: 386ee2bfefa71d54b80251ea49b63ee4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6147,6 +6171,28 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!95 &1024126176
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024126170}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3f23af9d933d0324192d6b8f655459f9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1026899305
 GameObject:
   m_ObjectHideFlags: 0
@@ -6913,7 +6959,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8451491196941387129, guid: 16bcdad0136da704795a6e43544731b9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7655,7 +7701,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7161064021492869901, guid: 2485ef1e935a6e54a950f64d1f2b4705, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
