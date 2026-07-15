@@ -16,20 +16,77 @@ public abstract class BaseBossWizard : MonoBehaviour
     [Header("攻撃B(配置弾)のGameObject")]
     [SerializeField] private GameObject placedBulletObject;
 
+    [Header("アニメーション設定")]
+    [SerializeField] private float idle2DetectX = 3f;  //プレイヤーがX軸で近いとき
+    [SerializeField] private float idle2DetectY = 1f;  //かつ、Y軸でこれ以上離れているとき
+
     protected int lastAttackIndex = -1;     //前回使った技を記録
     protected int lastTeleportIndex = -1;   //前回のテレポート場所を記録
     protected bool isActionRunning = false;
 
-    //ボスの行動(ループ)に入れる
-    protected virtual void Start()
+    protected Animator animator;
+    protected Transform playerTransform;
+
+    private float currentAnimState = 0f;   //アニメーションの状態管理用
+
+    protected bool isSpecialAttacking = false;
+
+    protected virtual void Awake()
     {
+        animator = GetComponent<Animator>();
+
+        //プレイヤーの自動検索
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
+    }
+
+    //ボスの行動(ループ)に入れる
+    public void StartBossBattle()
+    {
+        Debug.Log($"{gameObject.name}が戦闘開始");
         StartCoroutine(BossActionLoop());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateAnimationState();
+
+        //正面を向いてない間プレイヤーの方向を見る
+        if (currentAnimState == 0f && playerTransform != null)
+        {
+            LookAtPlayer(playerTransform.position);
+        }
+    }
+
+    private void UpdateAnimationState()
+    {
+        if (animator == null) return;
+
+        bool isSpecialActive = isSpecialAttacking;  //専用技の使用判定
+        bool isPlayerInIdle2Area = false;           //プレイヤーの位置判定
+        if(playerTransform != null)
+        {
+            float diffX = Mathf.Abs(transform.position.x - playerTransform.position.x);
+            float diffY = Mathf.Abs(transform.position.y - playerTransform.position.y);
+
+            if(diffX <= idle2DetectX && diffY >= idle2DetectY)
+            {
+                isPlayerInIdle2Area = true;
+            }
+        }
+
+        float targetState = (isSpecialActive || isPlayerInIdle2Area) ? 1.0f : 0f;
+
+        //値が変わったときだけAnimatorに反映する
+        if (currentAnimState != targetState)
+        {
+            currentAnimState = targetState;
+            animator.SetFloat("AnimState", currentAnimState);
+        }
     }
 
     private IEnumerator BossActionLoop()
@@ -163,8 +220,6 @@ public abstract class BaseBossWizard : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                LookAtPlayer(player.transform.position);
-
                 //プレイヤーのいる方向を計算
                 Vector3 direction = player.transform.position - transform.position;
 
@@ -202,8 +257,6 @@ public abstract class BaseBossWizard : MonoBehaviour
 
         if (player != null && placedBulletObject != null)
         {
-            LookAtPlayer(player.transform.position);
-
             Transform playerTransform = player.transform;
 
             //生成した弾をリストで記憶

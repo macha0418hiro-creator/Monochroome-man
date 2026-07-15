@@ -35,6 +35,8 @@ public class Noir : BaseBossWizard
 
         if (explosiveBulletObject != null)
         {
+            isSpecialAttacking = true;
+
             yield return new WaitForSeconds(1.0f); // 溜め時間
 
             Quaternion downRotation = Quaternion.Euler(0, 0, -90f);
@@ -66,6 +68,8 @@ public class Noir : BaseBossWizard
                 // スクリプトのStartが走らない場合を考慮して直接速度を与える
                 bulletRb.linearVelocity = bulletObj.transform.right * 8f; 
             }
+
+            isSpecialAttacking = false;
         }
 
         yield return new WaitForSeconds(2.5f);
