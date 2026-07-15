@@ -39,6 +39,8 @@ public class Blanc : BaseBossWizard
         
         if (residualBeamObject != null)
         {
+            isSpecialAttacking = true;  //アニメーションをIdle2に変更用
+
             yield return new WaitForSeconds(0.8f); // 溜め時間
 
             float floorY = 9f; //ステージの床のY座標
@@ -106,6 +108,8 @@ public class Blanc : BaseBossWizard
 
             // ビームが接地して燃え続ける時間を待つ
             yield return new WaitForSeconds(2.0f);
+
+            isSpecialAttacking = false;
         }
 
         yield return new WaitForSeconds(2.5f);
