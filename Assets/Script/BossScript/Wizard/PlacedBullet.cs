@@ -59,12 +59,6 @@ public class PlacedBullet : MonoBehaviour
         }
     }
 
-    //画面外の弾を削除する処理
-    private void OnBecameInvisible()
-    {
-        Destroy(gameObject);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(gameObject);
