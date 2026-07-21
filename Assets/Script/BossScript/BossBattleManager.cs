@@ -6,9 +6,13 @@ public class BossBattleManager : MonoBehaviour
     [SerializeField] private GameObject bossObject;
 
     [Header("入り口を塞ぐオブジェクト")]
-    [SerializeField] private GameObject bossRoomWall;
+    [SerializeField] private GameObject bossRoomEntranceWall;
+
+    [Header("出口を塞ぐオブジェクト")]
+    [SerializeField] private GameObject bossRoomExitWall;
 
     private bool isBattleStarted = false;
+    private bool isBattleFinished = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,16 +21,23 @@ public class BossBattleManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if(isBattleStarted && !isBattleFinished)
+        {
+            if(bossObject == null || !bossObject.activeInHierarchy)
+            {
+                FinishedBossBattle();
+            }
+        }
     }
 
     //ボスと壁を初期は非表示
     private void Awake()
     {
         if (bossObject != null) bossObject.SetActive(false);
-        if(bossRoomWall != null) bossRoomWall.SetActive(false);
+        if(bossRoomEntranceWall != null) bossRoomEntranceWall.SetActive(false);
+        if(bossRoomExitWall != null) bossRoomExitWall.SetActive(true);
     }
 
     //プレイヤーがボス部屋に入ったら実行
@@ -44,9 +55,9 @@ public class BossBattleManager : MonoBehaviour
     {
         Debug.Log("ボス戦開始");
 
-        if(bossRoomWall != null)
+        if(bossRoomEntranceWall != null)
         {
-            bossRoomWall.SetActive(true);
+            bossRoomEntranceWall.SetActive(true);
         }
 
         if(bossObject != null)
@@ -59,5 +70,13 @@ public class BossBattleManager : MonoBehaviour
                 bossScript.StartBossBattle();
             }
         }
+    }
+
+    private void FinishedBossBattle()
+    {
+        isBattleFinished = true;
+        Debug.Log("壁が解除された");
+
+        if (bossRoomExitWall != null) bossRoomExitWall.SetActive(false);
     }
 }

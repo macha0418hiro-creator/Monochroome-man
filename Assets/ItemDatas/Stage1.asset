@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd1d68077d76ea247b903352b461d671, type: 3}
+  m_Name: Stage1
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemID: 01
+  itemName: BlackPaint
+  itemIcon: {fileID: 4457835537561387818, guid: 5c1f716fc7e849a43a50ae67185ed9b7, type: 3}
+  itemText: "\u8272\u3092\u9ED2\u8272\u306B\u5909\u3048\u308B"
