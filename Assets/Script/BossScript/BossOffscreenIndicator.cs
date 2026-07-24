@@ -71,11 +71,6 @@ public class BossOffscreenIndicator : MonoBehaviour
             //UIの座標更新
             indicatorUI.position = screenPos;
 
-            //アイコンが矢印の場合その方向へ画像を向かせる(まだ未定)
-            Vector3 screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
-            Vector3 dir = screenPos - screenCenter;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            indicatorUI.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
         }
         else
         {
