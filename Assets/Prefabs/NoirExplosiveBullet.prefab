@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7382911578682921701}
   - component: {fileID: 3197891110260937799}
   - component: {fileID: 2811358557287254798}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: NoirExplosiveBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

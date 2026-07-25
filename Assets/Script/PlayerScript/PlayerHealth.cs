@@ -24,6 +24,8 @@ public class PlayerHealth : MonoBehaviour
     [Header("連動するUI")]
     [SerializeField] private PlayerHpUI hpUI;
 
+    [SerializeField] private GameOverManager gameOverManager;
+
     private Rigidbody2D rb;
 
     public bool IsKnockbacking { get; private set; }
@@ -124,7 +126,12 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("プレイヤーは倒れた！");
 
-        //***ここにゲームオーバー画面の表示や、シーンの再読み込みなどを後々追加***
+        // GameOver画面を表示
+        if (gameOverManager != null)
+        {
+            gameOverManager.ShowGameOver();
+        }
+
         gameObject.SetActive(false); // とりあえず消す
     }
 }

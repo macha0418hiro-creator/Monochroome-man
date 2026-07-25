@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttributeController : MonoBehaviour
 {
+    //他のスクリプトに属性変更を知らせるイベントを定義
+    public static event Action<GameObject> OnAttributeChanged;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public enum PlayerColor //属性(色)の定義
     {
@@ -97,6 +100,9 @@ public class PlayerAttributeController : MonoBehaviour
         //当たり判定(レイヤー)を切り替える
         string layerName = "Player" + currentColor.ToString();
         gameObject.layer = LayerMask.NameToLayer(layerName);
+
+        //レイヤー変更後、属性が変わったことを足場に通知
+        OnAttributeChanged?.Invoke(gameObject);
 
         Debug.Log($"プレイヤーの立ち絵を切り替え、判定を【{layerName}】にしました。");
     }
