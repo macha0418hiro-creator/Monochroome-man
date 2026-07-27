@@ -48,7 +48,7 @@ public class PlayerHealth : MonoBehaviour
         
     }
 
-    //外部(エネミーなど)空ダメージを受ける処理
+    //外部(エネミーなど)からダメージを受ける処理
     public void TakeDamage(int damageAmount, Vector2 attackerPosition)
     {
         //無敵時間中は処理しない
@@ -84,6 +84,32 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             // 無敵時間と点滅のカウントダウンを開始
+            StartCoroutine(DamageRoutine());
+        }
+    }
+
+    //転落ダメージを与える用
+    public void TakeDamage(int damageAmount)
+    {
+        // 無敵時間中は処理しない
+        if (isInvicible) return;
+
+        currentHp -= damageAmount;
+        Debug.Log($"プレイヤーがダメージ! 残りHP{currentHp}");
+
+        // HP UI更新
+        if (hpUI != null)
+        {
+            hpUI.UpdateHpUI(currentHp);
+        }
+
+        if (currentHp <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            // ノックバックは発生させず、無敵・点滅処理だけ呼び出す
             StartCoroutine(DamageRoutine());
         }
     }
