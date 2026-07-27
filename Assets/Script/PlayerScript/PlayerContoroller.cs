@@ -24,6 +24,10 @@ public class PlayerContoroller : MonoBehaviour
     private PlayerHealth playerHealth;
     private Animator animator;
 
+    //直前に接地していた位置を記憶する変数
+    private Vector3 lastGroundedPosition;
+    public Vector3 LastGroundedPosition => lastGroundedPosition;
+
     void Start() 
     {
         //Unityから情報を受け取る
@@ -48,6 +52,12 @@ public class PlayerContoroller : MonoBehaviour
 
         //毎フレーム地面との接触チェック
         CheckGroundedWithTag();
+
+        //地面に足がついている間だけ、その座標を記憶し続ける
+        if (isGrounded)
+        {
+            lastGroundedPosition = transform.position;
+        }
 
         //移動速度処理
         rb.linearVelocity = new Vector2(moveInput.x * status.moveSpeed, rb.linearVelocity.y);
@@ -98,6 +108,19 @@ public class PlayerContoroller : MonoBehaviour
                 break;
             }
         }
+    }
+
+    //転落時に呼ばれるリスポー(復帰)処理
+    public void RespawnToLastGround()
+    {
+        if (rb != null)
+        {
+            //すり抜け対策で落下中の移動速度(慣性)をリセット
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        //記憶しておいた最後に接地していた位置へ移動し少し浮かせる(スタック防止)
+        transform.position = lastGroundedPosition + Vector3.up * 0.2f;
     }
 
     public void OnMove(InputAction.CallbackContext context) //移動処理
