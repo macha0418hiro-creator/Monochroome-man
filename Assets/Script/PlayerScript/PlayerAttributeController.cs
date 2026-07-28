@@ -18,6 +18,11 @@ public class PlayerAttributeController : MonoBehaviour
     [Header("現在の属性")]
     [SerializeField] private PlayerColor currentColor = PlayerColor.White;
 
+    //モノクロの筆を持っているか(Fキー切り替えができるか)
+    [Header("能力解放フラグ")]
+    [SerializeField] private bool canSwitchColor = false;
+    public bool CanSwitchColor => canSwitchColor;
+
     [Header("立ち絵(Sprite)の設定")]
     [SerializeField] private SpriteRenderer spriteRenderer; //表示してる立ち絵
     [SerializeField] private Sprite whiteSprite;            //白用の立ち絵
@@ -49,8 +54,15 @@ public class PlayerAttributeController : MonoBehaviour
         //Fキーが押されたときに色を変更
         if(Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
         {
+            //モノクロの筆を持っていない場合はFキー切替不可
+            if (!canSwitchColor)
+            {
+                Debug.Log("モノクロの筆を持っていないため、色を変更できません！");
+                return;
+            }
+
             //ブロックをつかんでる間は色変更禁止
-            if(objectPuller != null && objectPuller.IsPulling)
+            if (objectPuller != null && objectPuller.IsPulling)
             {
                 Debug.Log("ブロックをつかんでる間は色を変えれません");
                 return;
@@ -71,6 +83,13 @@ public class PlayerAttributeController : MonoBehaviour
                 SetColor(PlayerColor.White);
             }
         }
+    }
+
+    //色変更を可能にする処理
+    public void UnlockColorSwitch()
+    {
+        canSwitchColor = true;
+        Debug.Log("モノクロの筆を獲得！ Fキーで属性を自由に切り替えられるようになった！");
     }
 
     public void SetColor(PlayerColor newColor) //色を変更するシステム

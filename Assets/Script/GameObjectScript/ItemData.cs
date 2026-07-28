@@ -1,5 +1,13 @@
 using UnityEngine;
 
+public enum ItemType
+{
+    PaintBlack,
+    PaintWhite,
+    MonochromeBrush,
+    HealHeart        //回復ハート(実装未定)
+}
+
 [CreateAssetMenu(fileName = "NewItemData", menuName = "GameData/ItemData")]
 public class ItemData : ScriptableObject
 {
@@ -8,6 +16,9 @@ public class ItemData : ScriptableObject
 
     [Header("表示名")]
     public string itemName;
+
+    [Header("アイテムの種類")]
+    public ItemType itemType;
 
     [Header("アイコン画像")]
     public Sprite itemIcon;
