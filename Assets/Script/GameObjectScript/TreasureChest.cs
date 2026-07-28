@@ -13,6 +13,9 @@ public class TreasureChest : MonoBehaviour
     private bool isPlayerNear = false;
     private bool isOpened = false;
 
+    //近づいているプレイヤーの参照を保持
+    private GameObject playerObject;
+
     private void Start()
     {
         //自分のSpriteRendererコンポーネントを取得
@@ -43,8 +46,17 @@ public class TreasureChest : MonoBehaviour
         {
             Debug.Log($"宝箱を開けた！ アイテム『{itemInside.itemName}』（ID: {itemInside.itemID}）を手に入れた！");
 
-            // 後々、属性解放やインベントリシステムと連携させる場所です
+            //プレイヤーにアイテムデータを渡して効果を発動させる
+            if (playerObject != null)
+            {
+                PlayerItemHandler itemHandler = playerObject.GetComponent<PlayerItemHandler>();
+                if (itemHandler != null)
+                {
+                    itemHandler.UseItem(itemInside);
+                }
+            }
         }
+
         else
         {
             Debug.LogWarning("宝箱は空っぽでした…（ItemDataが未設定です）");
@@ -56,6 +68,7 @@ public class TreasureChest : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isPlayerNear = true;
+            playerObject = collision.gameObject;
         }
     }
 
