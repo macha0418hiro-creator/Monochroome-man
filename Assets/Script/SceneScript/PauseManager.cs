@@ -10,7 +10,7 @@ public class PauseManager : MonoBehaviour
     [Header("ステージ選択画面")]
     [SerializeField] private string stageSelectScenenName = "StageSelect";
 
-    public static bool IsPaused { get; private set; } = false;
+    public static bool IsPaused { get; set; } = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
