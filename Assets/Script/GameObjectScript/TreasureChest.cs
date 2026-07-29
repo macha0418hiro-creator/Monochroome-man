@@ -46,15 +46,7 @@ public class TreasureChest : MonoBehaviour
         {
             Debug.Log($"宝箱を開けた！ アイテム『{itemInside.itemName}』（ID: {itemInside.itemID}）を手に入れた！");
 
-            //プレイヤーにアイテムデータを渡して効果を発動させる
-            if (playerObject != null)
-            {
-                PlayerItemHandler itemHandler = playerObject.GetComponent<PlayerItemHandler>();
-                if (itemHandler != null)
-                {
-                    itemHandler.UseItem(itemInside);
-                }
-            }
+            ItemGetUI.Instance.ShowItemGetPopup(itemInside, playerObject);
         }
 
         else

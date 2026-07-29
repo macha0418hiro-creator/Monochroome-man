@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd1d68077d76ea247b903352b461d671, type: 3}
-  m_Name: BlackPaint
+  m_Name: PaintBlack
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemID: 01
   itemName: BlackPaint
   itemType: 0
   itemIcon: {fileID: 4457835537561387818, guid: 5c1f716fc7e849a43a50ae67185ed9b7, type: 3}
-  itemText: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u8272\u3092\u9ED2\u306B\u5909\u3048\u308B"
+  itemText: playerBlack
