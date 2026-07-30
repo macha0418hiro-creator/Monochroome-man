@@ -15,5 +15,5 @@ MonoBehaviour:
   itemID: 02
   itemName: WhitePaint
   itemType: 1
-  itemIcon: {fileID: 4457835537561387818, guid: 5c1f716fc7e849a43a50ae67185ed9b7, type: 3}
+  itemIcon: {fileID: -68751727340038015, guid: 30149b84a4915084d97b0375fe4aa67c, type: 3}
   itemText: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u8272\u3092\u767D\u306B\u5909\u3048\u308B"

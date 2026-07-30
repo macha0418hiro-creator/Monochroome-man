@@ -15,5 +15,5 @@ MonoBehaviour:
   itemID: 03
   itemName: MonochromeBrush
   itemType: 2
-  itemIcon: {fileID: 4457835537561387818, guid: 5c1f716fc7e849a43a50ae67185ed9b7, type: 3}
+  itemIcon: {fileID: 6761164967045977113, guid: 30149b84a4915084d97b0375fe4aa67c, type: 3}
   itemText: "\u30D7\u30EC\u30A4\u30E4\u30FC\u304C\u8272\u3092\u81EA\u7531\u306B\u5909\u66F4\u3067\u304D\u308B"
