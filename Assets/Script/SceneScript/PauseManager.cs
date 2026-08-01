@@ -15,7 +15,11 @@ public class PauseManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if(pauseScreen != null)
+        //シーン開始時にリセット
+        IsPaused = false;
+        Time.timeScale = 1f;
+
+        if (pauseScreen != null)
         {
             pauseScreen.SetActive(false);
         }
