@@ -8,9 +8,6 @@ public class GoalTrigger : MonoBehaviour
     [Header("ステージ番号")]
     [SerializeField] private int stageNumber;
 
-    [Header("クリア後遷移先シーン名")]
-    [SerializeField] private string selectSceneName = "StageSelect";
-
     private bool isPlayerInGoal = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,7 +33,14 @@ public class GoalTrigger : MonoBehaviour
         PlayerPrefs.SetInt($"Stage_{stageNumber}_Cleared", 1);
         PlayerPrefs.Save();
 
-        SceneManager.LoadScene(selectSceneName);
+        if (StageClearUI.Instance != null)
+        {
+            StageClearUI.Instance.ShowClearUI();
+        }
+        else
+        {
+            Debug.LogError("StageClearUI がシーン内に見つかりません！");
+        }
     }
 
     //プレイヤーがゴール内にいるか判定
@@ -49,7 +53,7 @@ public class GoalTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
