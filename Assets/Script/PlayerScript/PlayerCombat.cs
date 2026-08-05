@@ -14,10 +14,13 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private float attackCooldown = 0.5f;
 
     private bool isAttacking = false;
+    private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        animator = GetComponent<Animator>();
+
         if(attackHitBox != null)
         {
             attackHitBox.SetActive(false);
@@ -44,7 +47,13 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = true;
         Debug.Log("プレイヤーが攻撃した");
 
-        if(attackHitBox != null)
+        //Animatorのトリガーを引いてアニメーション再生
+        if (animator != null)
+        {
+            animator.SetTrigger("Attack");
+        }
+
+        if (attackHitBox != null)
         {
             //プレイヤーと同じレイヤーに書き換える
             attackHitBox.layer = this.gameObject.layer;
