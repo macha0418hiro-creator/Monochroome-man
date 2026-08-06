@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,10 +11,21 @@ public class EnemyHealth : MonoBehaviour
     [Header("ボスかどうか")]
     [SerializeField] private bool isBoss = false;
 
+    //外部(UI)からHP情報を取得するためのプロパティ
+    public int MaxHp => maxHp;
+    public int CurrentHp => currentHp;
+    public bool IsBoss => isBoss;
+
+    //HP変更時と死亡時にUIへ通知するイベント
+    public event Action OnSpawned;
+    public event Action<int> OnHpChanged;
+    public event Action OnDied;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnEnable()
     {
         currentHp = maxHp;
+        OnSpawned?.Invoke();
     }
 
     // Update is called once per frame
@@ -27,7 +39,9 @@ public class EnemyHealth : MonoBehaviour
         currentHp -= damage;
         Debug.Log($"{gameObject.name}は{damage}ダメージ受けた(残りHP:{currentHp})");
 
-        if(currentHp <= 0)
+        OnHpChanged?.Invoke(currentHp); //HPが変化したことをUIに通知
+
+        if (currentHp <= 0)
         {
             Die();
         }
@@ -44,7 +58,9 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log($"Enemy {gameObject.name}を倒した");
         }
 
-        if(transform.parent != null)
+        OnDied?.Invoke();   //死亡したことをUIに通知
+
+        if (transform.parent != null)
         {
             Destroy(transform.parent.gameObject);
         }

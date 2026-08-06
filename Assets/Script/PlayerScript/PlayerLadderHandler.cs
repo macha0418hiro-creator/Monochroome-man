@@ -9,6 +9,7 @@ public class PlayerLadderHandler : MonoBehaviour
     private Rigidbody2D rb;
     private Ladder currentLadder;
     private PlayerContoroller playerController;
+    private Animator animator;
     private bool isNearLadder = false;
     private bool isClimbing = false;
     private float defaultGravityScale;
@@ -17,6 +18,7 @@ public class PlayerLadderHandler : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerController = GetComponent<PlayerContoroller>();
+        animator = GetComponent<Animator>();
 
         if (rb != null)
         {
@@ -64,6 +66,12 @@ public class PlayerLadderHandler : MonoBehaviour
 
             //上下移動(Y軸速度の上書き)
             rb.linearVelocity = new Vector2(0f, verticalInput * climbSpeed);
+
+            //上下入力があるときのみアニメション再生
+            if(animator != null)
+            {
+                animator.SetFloat("climbSpeed", Mathf.Abs(verticalInput));
+            }
         }
     }
 
@@ -84,6 +92,12 @@ public class PlayerLadderHandler : MonoBehaviour
             transform.position = new Vector3(currentLadder.GetCenterX(transform.position), transform.position.y, transform.position.z);
         }
 
+        //ハシゴアニメーションを起動
+        if(animator != null)
+        {
+            animator.SetBool("isClimbing", true);
+        }
+
         Debug.Log("ハシゴに掴まった");
     }
 
@@ -98,6 +112,13 @@ public class PlayerLadderHandler : MonoBehaviour
         rb.gravityScale = defaultGravityScale;
 
         if (playerController != null) playerController.enabled = true;  //移動スクリプトを再開
+
+        //アニメーションを解除
+        if (animator != null)
+        {
+            animator.SetBool("isClimbing", false);
+            animator.SetFloat("climbSpeed", 1f);     //速度リセット
+        }
 
         Debug.Log("ハシゴから離れた");
     }

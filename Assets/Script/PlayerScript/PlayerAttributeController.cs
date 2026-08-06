@@ -49,6 +49,14 @@ public class PlayerAttributeController : MonoBehaviour
         animator = GetComponent<Animator>();
         objectPuller = GetComponent<ObjectPuller>();
         playerContoroller = GetComponent<PlayerContoroller>();
+
+        //シーン読み込み時にデータを引き継ぐ
+        if (PlayerDataManager.Instance != null)
+        {
+            currentColor = PlayerDataManager.Instance.CurrentColor;
+            canSwitchColor = PlayerDataManager.Instance.CanSwitchColor;
+        }
+
         SetColorFloat(currentColor, spawnEffect: false);
     }
 
@@ -104,6 +112,13 @@ public class PlayerAttributeController : MonoBehaviour
     public void UnlockColorSwitch()
     {
         canSwitchColor = true;
+
+        //筆を獲得したフラグを保存
+        if (PlayerDataManager.Instance != null)
+        {
+            PlayerDataManager.Instance.CanSwitchColor = true;
+        }
+
         Debug.Log("モノクロの筆を獲得！ Fキーで属性を自由に切り替えられるようになった！");
     }
 
@@ -117,6 +132,12 @@ public class PlayerAttributeController : MonoBehaviour
     private void SetColorFloat(PlayerColor newColor, bool spawnEffect)
     {
         currentColor = newColor;
+
+        //変更後の属性(色)を保存
+        if (PlayerDataManager.Instance != null)
+        {
+            PlayerDataManager.Instance.CurrentColor = currentColor;
+        }
 
         //エフェクトを出す場合のみ処理
         if (spawnEffect)
