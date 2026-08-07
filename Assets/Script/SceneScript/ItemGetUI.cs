@@ -40,7 +40,7 @@ public class ItemGetUI : MonoBehaviour
         playerObj = player;
 
         itemIconImage.sprite = item.itemIcon;
-        itemTitleText.text = $"{item.itemName} Get!";
+        itemTitleText.text = $"{item.itemName} をGet!";
         itemDescriptionText.text = item.itemText;
 
         popupPanel.SetActive(true);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PaintBlack
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemID: 01
-  itemName: BlackPaint
+  itemName: "\u9ED2\u306E\u30DA\u30F3\u30AD"
   itemType: 0
   itemIcon: {fileID: 5508725064705088119, guid: 30149b84a4915084d97b0375fe4aa67c, type: 3}
-  itemText: playerBlack
+  itemText: "\u3053\u308C\u3092\u5165\u624B\u3059\u308B\u3068\u4F53\u304C\u9ED2\u8272\u306B\u67D3\u307E\u308B"
