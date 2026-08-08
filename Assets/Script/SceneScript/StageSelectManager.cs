@@ -32,13 +32,13 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] private Image centerBlackGemImage;
 
     [Header("ステージデータの設定")]
-    [SerializeField] private List<StageData> stages;          
+    [SerializeField] private List<StageData> stages;
     [SerializeField] private float stageSpacing = 600f;       //ステージ画像1枚分(横幅＋余白)の移動距離
     [SerializeField] private float moveSpeed = 10f;           //ステージ画像が動くスピード
 
-    private int currentStageIndex = 0;                        //現在選択されているステージの番号
+    private int currentStageIndex = 0;                        //現在選択されているステージの番号(0始まり)
     private Vector2 targetPosition;                           //目標座標
-    private bool canPlay = false;                             //画面遷移暴発対策
+    private bool canPlay = false;                              //画面遷移暴発対策
 
     //シーンが読み込まれた際UIを最新状態にする
     private void OnEnable()
@@ -49,7 +49,7 @@ public class StageSelectManager : MonoBehaviour
     void Start()
     {
         //初期位置を記憶
-        if(stageContainer != null)
+        if (stageContainer != null)
         {
             targetPosition = stageContainer.anchoredPosition;
         }
@@ -65,7 +65,6 @@ public class StageSelectManager : MonoBehaviour
             int index = i;
             if (indicatorDots[i] != null)
             {
-                // トグルの値（ON/OFF）が変わった瞬間を検知する
                 indicatorDots[i].onClick.AddListener(() => OnClickDot(index));
             }
         }
@@ -76,7 +75,7 @@ public class StageSelectManager : MonoBehaviour
         //マウスから指が離されるまで、動かせない処理
         if (!canPlay)
         {
-            if(UnityEngine.InputSystem.Pointer.current != null && !UnityEngine.InputSystem.Pointer.current.press.isPressed)
+            if (UnityEngine.InputSystem.Pointer.current != null && !UnityEngine.InputSystem.Pointer.current.press.isPressed)
             {
                 canPlay = true;
             }
@@ -91,6 +90,20 @@ public class StageSelectManager : MonoBehaviour
                 Time.deltaTime * moveSpeed
             );
         }
+    }
+
+    // 🟢【追加】指定したインデックスのステージが解放されているか判定
+    public bool IsStageUnlocked(int index)
+    {
+        // ステージ1 (index == 0) は常に解放
+        if (index == 0) return true;
+
+        // それ以外のステージは「前のステージがクリア済みか」チェック
+        // 例: ステージ2 (index == 1) は Stage_1_Cleared == 1 なら解放
+        int previousStageNumber = index; // indexが1なら previousStageNumberは1
+        int isCleared = PlayerPrefs.GetInt($"Stage_{previousStageNumber}_Cleared", 0);
+
+        return isCleared == 1;
     }
 
     private void OnClickLeftArrow()
@@ -114,7 +127,7 @@ public class StageSelectManager : MonoBehaviour
 
         //スライドの計算(左右どちらに動くか)
         float targetX = (-index * stageSpacing) - 300f;
-        if(stageContainer != null)
+        if (stageContainer != null)
         {
             targetPosition = new Vector2(targetX, stageContainer.anchoredPosition.y);
         }
@@ -124,10 +137,15 @@ public class StageSelectManager : MonoBehaviour
 
     private void UpdateStageUI()
     {
-        //1.ステージ名テキストの更新
+        //1.ステージ名テキストの更新（未解放の場合はメッセージを付与）
         if (stageNameText != null && currentStageIndex < stages.Count)
         {
-            stageNameText.text = stages[currentStageIndex].stageDisplayName;
+            string displayName = stages[currentStageIndex].stageDisplayName;
+            if (!IsStageUnlocked(currentStageIndex))
+            {
+                displayName += " <size=70%>(未解放)</size>";
+            }
+            stageNameText.text = displayName;
         }
 
         //2.矢印ボタンの有効・無効切り替え
@@ -140,7 +158,6 @@ public class StageSelectManager : MonoBehaviour
             if (indicatorDots[i] != null)
             {
                 ColorBlock colors = indicatorDots[i].colors;
-                //選択中なら白、それ以外は灰色
                 colors.normalColor = (i == currentStageIndex) ? Color.white : new Color(0f, 0f, 0f, 1f);
                 colors.selectedColor = colors.normalColor;
                 colors.pressedColor = colors.normalColor;
@@ -148,7 +165,7 @@ public class StageSelectManager : MonoBehaviour
             }
         }
 
-        //宝石の取得状況の切り替え
+        //4.宝石の取得状況の切り替え
         if (currentStageIndex < stages.Count)
         {
             int stageNum = currentStageIndex + 1;
@@ -170,13 +187,18 @@ public class StageSelectManager : MonoBehaviour
         }
     }
 
-    
-
     //中央にあるステージ画像を押したときステージ遷移
     public void OnClickCurrentStagePlay()
     {
         //クリックが画面遷移後残らないように
         if (!canPlay) return;
+
+        // 🟢【追加】選択中のステージが解放されていない場合は遷移をブロック
+        if (!IsStageUnlocked(currentStageIndex))
+        {
+            Debug.LogWarning($"ステージ {currentStageIndex + 1} はまだ解放されていません！前のステージをクリアしてください。");
+            return;
+        }
 
         if (currentStageIndex < stages.Count)
         {
@@ -185,7 +207,6 @@ public class StageSelectManager : MonoBehaviour
             if (!string.IsNullOrEmpty(targetScene))
             {
                 Debug.Log($"[StageSelect] {targetScene} へ遷移します（ローディング画面経由）");
-
                 SceneNavigator.LoadTargetScene(targetScene);
             }
             else
@@ -195,15 +216,48 @@ public class StageSelectManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("Delete Save Data")]
+    // --------------------------------------------------
+    // 🛠️ 開発・デバッグ用機能（Inspectorの右クリックメニュー）
+    // --------------------------------------------------
+
+    [ContextMenu("Debug: すべてのステージを解放")]
+    public void DebugUnlockAllStages()
+    {
+        for (int i = 1; i <= stages.Count; i++)
+        {
+            PlayerPrefs.SetInt($"Stage_{i}_Cleared", 1);
+        }
+        PlayerPrefs.Save();
+        Debug.Log("【デバッグ】すべてのステージをクリア状態（解放）にしました！");
+
+        RefreshAllPanels();
+    }
+
+    [ContextMenu("Debug: 現在選択中のステージをクリア済みにする")]
+    public void DebugClearCurrentStage()
+    {
+        int stageNum = currentStageIndex + 1;
+        PlayerPrefs.SetInt($"Stage_{stageNum}_Cleared", 1);
+        PlayerPrefs.Save();
+        Debug.Log($"【デバッグ】ステージ {stageNum} をクリア済みに設定しました！");
+
+        RefreshAllPanels();
+    }
+
+    [ContextMenu("Debug: セーブデータを全削除 (Delete Save Data)")]
     public void DeleteSaveData()
     {
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
         Debug.Log("セーブデータを初期化しました");
 
+        RefreshAllPanels();
+    }
+
+    private void RefreshAllPanels()
+    {
         StageSelectPanel[] allPanels = Object.FindObjectsByType<StageSelectPanel>(FindObjectsInactive.Include);
-        foreach(var panel in allPanels)
+        foreach (var panel in allPanels)
         {
             panel.UpdateItemUI();
         }
