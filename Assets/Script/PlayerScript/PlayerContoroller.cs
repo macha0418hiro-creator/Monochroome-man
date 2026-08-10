@@ -144,6 +144,8 @@ public class PlayerContoroller : MonoBehaviour
             if (isGrounded && !isPulling)
             {
                 rb.AddForce(Vector2.up * status.jumpForce, ForceMode2D.Impulse);
+
+                SoundManager.Instance?.PlaySE(SoundManager.SEType.Jump);
             }
         }
     }
