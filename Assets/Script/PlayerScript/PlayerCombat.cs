@@ -53,6 +53,8 @@ public class PlayerCombat : MonoBehaviour
             animator.SetTrigger("Attack");
         }
 
+        SoundManager.Instance?.PlaySE(SoundManager.SEType.Attack);
+
         if (attackHitBox != null)
         {
             //プレイヤーと同じレイヤーに書き換える
