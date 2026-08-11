@@ -23,8 +23,7 @@ public class GameOverManager : MonoBehaviour
             gameOverPanel.SetActive(true);
         }
 
-        // 必要に応じてゲームの一時停止を行う場合
-        // Time.timeScale = 0f;
+        SoundManager.Instance?.PlaySE(SoundManager.SEType.Lose);
     }
 
     //Retryボタンを押した時の処理

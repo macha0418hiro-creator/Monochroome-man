@@ -1,6 +1,7 @@
 using System;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using static SoundManager;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -56,6 +57,8 @@ public class PlayerHealth : MonoBehaviour
 
         currentHp -= damageAmount;
         Debug.Log($"プレイヤーがダメージ! 残りHP{currentHp}");
+
+        SoundManager.Instance?.PlaySE(SoundManager.SEType.Damage);
 
         //HPが減ったことをUIに伝えてハートをグレーにしてもらう ---
         if (hpUI != null)

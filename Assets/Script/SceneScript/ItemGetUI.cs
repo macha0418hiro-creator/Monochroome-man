@@ -44,6 +44,7 @@ public class ItemGetUI : MonoBehaviour
         itemDescriptionText.text = item.itemText;
 
         popupPanel.SetActive(true);
+        SoundManager.Instance?.PlaySE(SoundManager.SEType.Get);
         Time.timeScale = 0f;
         PauseManager.IsPaused = true;
     }
