@@ -41,6 +41,11 @@ public class EnemyHealth : MonoBehaviour
 
         OnHpChanged?.Invoke(currentHp); //HPが変化したことをUIに通知
 
+        if(currentHp > 0)
+        {
+            SoundManager.Instance?.PlaySE(SoundManager.SEType.Damage);
+        }
+
         if (currentHp <= 0)
         {
             Die();
@@ -57,6 +62,8 @@ public class EnemyHealth : MonoBehaviour
         {
             Debug.Log($"Enemy {gameObject.name}を倒した");
         }
+
+        SoundManager.Instance?.PlaySE(SoundManager.SEType.Disappearance);
 
         OnDied?.Invoke();   //死亡したことをUIに通知
 

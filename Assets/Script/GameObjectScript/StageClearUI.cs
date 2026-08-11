@@ -28,6 +28,8 @@ public class StageClearUI : MonoBehaviour
             clearPanel.SetActive(true);
         }
 
+        SoundManager.Instance?.PlaySE(SoundManager.SEType.Win);
+
         // 時間停止＆操作無効化
         Time.timeScale = 0f;
         PauseManager.IsPaused = true;

@@ -146,6 +146,8 @@ public class PlayerAttributeController : MonoBehaviour
             SpawnExplosion(colorIndex);
 
             StartCoroutine(ColorChangeCooldownRoutine());
+
+            SoundManager.Instance?.PlaySE(SoundManager.SEType.ColorChange);
         }
 
         //属性(色)に合わせて立ち絵を変更

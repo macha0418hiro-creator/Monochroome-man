@@ -28,6 +28,8 @@ public class CollectibleGem : MonoBehaviour
         {
             Collect();
         }
+
+        SoundManager.Instance?.PlaySE(SoundManager.SEType.Get);
     }
 
     private void Collect()

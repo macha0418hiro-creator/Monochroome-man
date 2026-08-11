@@ -11,10 +11,17 @@ public class SoundManager : MonoBehaviour
     // --------------------------------------------------
     public enum SEType
     {
-        Attack,      //攻撃
-        Jump,        //ジャンプ
-        ButtonClick, //ボタン押下
-        DogClick     //矢印・Dog押下時
+        Attack,         //攻撃
+        Jump,           //ジャンプ
+        Get,            //アイテム入手
+        ColorChange,    //色変更
+        Damage,         //ダメージ
+        Disappearance,  //消滅
+        ButtonClick,    //ボタン押下
+        DogClick,       //矢印・Dog押下時
+        Win,            //勝利
+        Lose,           //敗北
+
     }
 
     [System.Serializable]
