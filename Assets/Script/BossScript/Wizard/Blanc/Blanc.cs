@@ -77,6 +77,8 @@ public class Blanc : BaseBossWizard
             //ビームを伸ばす(予兆から本番へ)
             float duration = 0.5f;
             float elapsed = 0f;
+
+            SoundManager.Instance?.PlaySE(SoundManager.SEType.Beam);
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;

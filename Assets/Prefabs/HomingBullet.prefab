@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -258578202732639472}
   m_Layer: 14
   m_Name: HomingBullet
-  m_TagString: Untagged
+  m_TagString: BossAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

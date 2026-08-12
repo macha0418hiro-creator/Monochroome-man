@@ -1,26 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
+
+    [Header("Audio Mixer の設定")]
+    [SerializeField] private AudioMixer audioMixer;
+
+    // AudioMixerのExposed Parameter名
+    private const string MASTER_PARAM = "MasterVolume";
+    private const string BGM_PARAM = "BGMVolume";
+    private const string SE_PARAM = "SEVolume";
+
+    // PlayerPrefsの保存用キー
+    private const string MASTER_KEY = "Vol_Master";
+    private const string BGM_KEY = "Vol_BGM";
+    private const string SE_KEY = "Vol_SE";
 
     // --------------------------------------------------
     //  SE（効果音）の設定
     // --------------------------------------------------
     public enum SEType
     {
+        //Player
         Attack,         //攻撃
         Jump,           //ジャンプ
         Get,            //アイテム入手
         ColorChange,    //色変更
         Damage,         //ダメージ
         Disappearance,  //消滅
+
+        //System
         ButtonClick,    //ボタン押下
         DogClick,       //矢印・Dog押下時
         Win,            //勝利
         Lose,           //敗北
+
+        //Enemy
+        Explosion,      //爆発
+        Beam,           //ビーム
 
     }
 
@@ -80,6 +101,12 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // 起動時に保存された音量を読み込んで適用
+        LoadAndApplyVolumeSettings();
+    }
+
     private void InitDictionaries()
     {
         seDictionary.Clear();
@@ -99,6 +126,50 @@ public class SoundManager : MonoBehaviour
                 bgmDictionary.Add(data.type, data);
             }
         }
+    }
+
+    // --------------------------------------------------
+    // 🎛️ 音量コントロール（0.0001f 〜 1.0f のスライダー値をdBに変換）
+    // --------------------------------------------------
+    public void SetMasterVolume(float volume)
+    {
+        volume = Mathf.Clamp(volume, 0.0001f, 1f);
+        if (audioMixer != null)
+        {
+            audioMixer.SetFloat(MASTER_PARAM, Mathf.Log10(volume) * 20);
+        }
+        PlayerPrefs.SetFloat(MASTER_KEY, volume);
+    }
+
+    public void SetBGMVolume(float volume)
+    {
+        volume = Mathf.Clamp(volume, 0.0001f, 1f);
+        if (audioMixer != null)
+        {
+            audioMixer.SetFloat(BGM_PARAM, Mathf.Log10(volume) * 20);
+        }
+        PlayerPrefs.SetFloat(BGM_KEY, volume);
+    }
+
+    public void SetSEVolume(float volume)
+    {
+        volume = Mathf.Clamp(volume, 0.0001f, 1f);
+        if (audioMixer != null)
+        {
+            audioMixer.SetFloat(SE_PARAM, Mathf.Log10(volume) * 20);
+        }
+        PlayerPrefs.SetFloat(SE_KEY, volume);
+    }
+
+    public float GetMasterVolume() => PlayerPrefs.GetFloat(MASTER_KEY, 1f);
+    public float GetBGMVolume() => PlayerPrefs.GetFloat(BGM_KEY, 1f);
+    public float GetSEVolume() => PlayerPrefs.GetFloat(SE_KEY, 1f);
+
+    private void LoadAndApplyVolumeSettings()
+    {
+        SetMasterVolume(GetMasterVolume());
+        SetBGMVolume(GetBGMVolume());
+        SetSEVolume(GetSEVolume());
     }
 
     // --------------------------------------------------

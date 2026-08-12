@@ -56,6 +56,9 @@ public class AreaAttackEffect : MonoBehaviour
 
         yield return new WaitForSeconds(warningDuration);
 
+        //ボスが倒されて既に削除されていた場合は処理を中断
+        if (this == null || gameObject == null) yield break;
+
         //攻撃時のSpriteに変更
         spriteRenderer.sprite = currentSetup.activeSprite;
 
@@ -70,7 +73,10 @@ public class AreaAttackEffect : MonoBehaviour
 
         yield return new WaitForSeconds(attackDuration);
 
-        Destroy(gameObject);
+        if (this != null && gameObject != null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnDrawGizmos()
