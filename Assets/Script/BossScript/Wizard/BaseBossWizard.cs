@@ -318,6 +318,38 @@ public abstract class BaseBossWizard : MonoBehaviour
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
+
+    /// <summary>
+    /// ボスが死亡した時に呼び出す処理
+    /// </summary>
+    public virtual void OnBossDeath()
+    {
+        Debug.Log($"{gameObject.name} は倒されました。攻撃コルーチンを停止し、残存弾を破棄します。");
+
+        // 1. 進行中の攻撃コルーチン（弾の連射や待ち時間）を即座に全停止
+        StopAllCoroutines();
+
+        // 2. 画面上の "BossAttack" タグがついた弾や攻撃エリアを一括削除
+        ClearAllBossAttacks();
+
+        // 3. ボス本体を消去（必要に応じて死亡アニメーション等の後に呼んでもOK）
+        Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// 残存しているボスの攻撃オブジェクトを一括削除する
+    /// </summary>
+    protected void ClearAllBossAttacks()
+    {
+        GameObject[] attacks = GameObject.FindGameObjectsWithTag("BossAttack");
+        foreach (GameObject attack in attacks)
+        {
+            if (attack != null)
+            {
+                Destroy(attack);
+            }
+        }
+    }
 }
 
 

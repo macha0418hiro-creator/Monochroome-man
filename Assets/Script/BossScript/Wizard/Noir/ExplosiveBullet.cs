@@ -34,6 +34,8 @@ public class ExplosiveBullet : MonoBehaviour
         {
             GameObject explosion = Instantiate(explosionEffectObject, transform.position, Quaternion.identity);
             explosion.layer = this.gameObject.layer;
+
+            SoundManager.Instance?.PlaySE(SoundManager.SEType.Explosion);
         }
 
         Destroy(gameObject);

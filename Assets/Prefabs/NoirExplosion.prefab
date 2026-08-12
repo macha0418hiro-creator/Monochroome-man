@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1973641701746934957}
   m_Layer: 0
   m_Name: NoirExplosion
-  m_TagString: Untagged
+  m_TagString: BossAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
