@@ -19,6 +19,9 @@ public class AreaAttackEffect : MonoBehaviour
     [SerializeField] private float warningDuration = 1.5f;  //予備動作時間
     [SerializeField] private float attackDuration = 1.0f;   //攻撃の持続時間
 
+    [Header("監視対象のボス(空なら自動検索)")]
+    [SerializeField] private BaseBossWizard bossWizard;
+
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D circleCollider;    //白の攻撃範囲
     private PolygonCollider2D donutCollider;    //黒の攻撃範囲
@@ -26,13 +29,19 @@ public class AreaAttackEffect : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if (bossWizard == null)
+        {
+            bossWizard = FindAnyObjectByType<BaseBossWizard>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (bossWizard == null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Awake()
