@@ -8,7 +8,6 @@ public class PlayerAttributeController : MonoBehaviour
     //他のスクリプトに属性変更を知らせるイベントを定義
     public static event Action<GameObject> OnAttributeChanged;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public enum PlayerColor //属性(色)の定義
     {
         White,
@@ -39,6 +38,7 @@ public class PlayerAttributeController : MonoBehaviour
     [SerializeField] private float colorChangeCooldown = 0.7f;
 
     private bool isColorChanging = false;   //連打防止用フラグ
+    private bool isColorLocked = false;     // ★追加：オーラ等による色変更封印フラグ
 
     private ObjectPuller objectPuller;
     private PlayerContoroller playerContoroller;
@@ -69,8 +69,15 @@ public class PlayerAttributeController : MonoBehaviour
         }
 
         //Fキーが押されたときに色を変更
-        if(Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
         {
+            // ★追加：オーラによってロックされている場合は変更不可
+            if (isColorLocked)
+            {
+                Debug.Log("オーラによって色変更が封印されています！");
+                return;
+            }
+
             if (isColorChanging)
             {
                 Debug.Log("色変更アニメーション中のため、変更できません！");
@@ -91,7 +98,7 @@ public class PlayerAttributeController : MonoBehaviour
                 return;
             }
 
-            if(animator != null && !animator.GetBool("isGrounded"))
+            if (animator != null && !animator.GetBool("isGrounded"))
             {
                 Debug.Log("空中では色を帰れません");
                 return;
@@ -113,7 +120,6 @@ public class PlayerAttributeController : MonoBehaviour
     {
         canSwitchColor = true;
 
-        //筆を獲得したフラグを保存
         if (PlayerDataManager.Instance != null)
         {
             PlayerDataManager.Instance.CanSwitchColor = true;
@@ -133,13 +139,11 @@ public class PlayerAttributeController : MonoBehaviour
     {
         currentColor = newColor;
 
-        //変更後の属性(色)を保存
         if (PlayerDataManager.Instance != null)
         {
             PlayerDataManager.Instance.CurrentColor = currentColor;
         }
 
-        //エフェクトを出す場合のみ処理
         if (spawnEffect)
         {
             float colorIndex = (currentColor == PlayerColor.White) ? 0 : 1;
@@ -150,53 +154,78 @@ public class PlayerAttributeController : MonoBehaviour
             SoundManager.Instance?.PlaySE(SoundManager.SEType.ColorChange);
         }
 
-        //属性(色)に合わせて立ち絵を変更
         if (currentColor == PlayerColor.White)
         {
-            spriteRenderer.sprite = whiteSprite; //白の立ち絵を表示
+            spriteRenderer.sprite = whiteSprite;
         }
         else if (currentColor == PlayerColor.Black)
         {
-            spriteRenderer.sprite = blackSprite; //黒の立ち絵を表示
+            spriteRenderer.sprite = blackSprite;
         }
 
-        //アニメーターに現在の色(白 = 0, 黒 = 1)を伝える
         if (animator != null)
         {
             float index = (currentColor == PlayerColor.White) ? 0 : 1;
             animator.SetFloat("colorIndex", index);
         }
 
-        //UIに色が変わったことを伝える
         if (hpUI != null) hpUI.ChangeUiColor(currentColor);
 
-        //当たり判定(レイヤー)を切り替える
         string layerName = "Player" + currentColor.ToString();
         gameObject.layer = LayerMask.NameToLayer(layerName);
 
-        //レイヤー変更後、属性が変わったことを足場に通知
         OnAttributeChanged?.Invoke(gameObject);
 
         Debug.Log($"プレイヤーの立ち絵を切り替え、判定を【{layerName}】にしました。");
     }
 
-    //色変更時に呼ぶ
     void SpawnExplosion(float colorIndex)
     {
         if (explosionPrefab == null) return;
 
-        //transform(プレイヤー自身)を渡すことで、生成時に追従(子要素化)させる
         GameObject effect = Instantiate(explosionPrefab, transform.position, Quaternion.identity, transform);
 
         Animator effectAnimator = effect.GetComponent<Animator>();
         if (effectAnimator != null)
         {
-            //colorIndexをAnimatorに伝える
             effectAnimator.SetFloat("colorIndex", colorIndex);
         }
     }
 
-    //アニメーション再生中の連打をブロックするコルーチン
+    // インク弾やギミックなど外部から強制的に色を変えられる処理
+    public void ChangePlayerColor(bool toWhite)
+    {
+        PlayerColor targetColor = toWhite ? PlayerColor.White : PlayerColor.Black;
+
+        if (currentColor == targetColor) return;
+
+        SetColor(targetColor);
+
+        Debug.Log($"[PlayerAttributeController] インクにより強制的に【{targetColor}】に変更されました！");
+    }
+
+    // ★追加：オーラ用（指定色に強制変更し、一定時間Fキー等をロックする）
+    public void ApplyAuraColorLock(bool toWhite, float lockDuration)
+    {
+        // 1. 強制的に色変更
+        ChangePlayerColor(toWhite);
+
+        // 2. ロック処理を開始
+        StartCoroutine(LockColorRoutine(lockDuration));
+    }
+
+    // ★追加：属性ロック管理コルーチン
+    private IEnumerator LockColorRoutine(float duration)
+    {
+        isColorLocked = true;
+        Debug.Log($"【属性ロック】{duration}秒間、属性の切り替えが不可になりました！");
+
+        yield return new WaitForSeconds(duration);
+
+        isColorLocked = false;
+        Debug.Log("【属性ロック解除】属性の切り替えが可能になりました。");
+    }
+
     private IEnumerator ColorChangeCooldownRoutine()
     {
         isColorChanging = true;

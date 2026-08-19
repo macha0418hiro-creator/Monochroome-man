@@ -3186,6 +3186,9 @@ MonoBehaviour:
   - type: 2
     clip: {fileID: 8300000, guid: 03e8fe3637d8a35489ae109e4cbfa5b0, type: 3}
     volume: 0.05
+  - type: 3
+    clip: {fileID: 8300000, guid: e524d2030d2d12143a5ba8d7a6d06261, type: 3}
+    volume: 0.05
   bgmAudioSource: {fileID: 1393803434}
 --- !u!4 &1393803433
 Transform:

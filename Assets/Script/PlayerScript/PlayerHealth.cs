@@ -117,6 +117,14 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    //HP回復処理
+    public void Heal(int heal)
+    {
+        currentHp = currentHp + heal;
+
+        hpUI.UpdateHpUI(currentHp);
+    }
+
     // 無敵時間と点滅を同時に管理
     private IEnumerator DamageRoutine()
     {

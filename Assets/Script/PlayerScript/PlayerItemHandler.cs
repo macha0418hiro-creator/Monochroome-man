@@ -49,12 +49,10 @@ public class PlayerItemHandler : MonoBehaviour
                 break;
 
             case ItemType.HealHeart:
-                /* 
                 if (playerHealth != null)
                 {
                     playerHealth.Heal(1);
                 }
-                */
                 break;
         }
     }
