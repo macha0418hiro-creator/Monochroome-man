@@ -19,7 +19,7 @@ public class GoalTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isPlayerInGoal && Keyboard.current != null && Keyboard.current.wKey.wasPressedThisFrame)
+        if(isPlayerInGoal && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             ClearStage();
         }
@@ -27,7 +27,7 @@ public class GoalTrigger : MonoBehaviour
 
     private void ClearStage()
     {
-        Debug.Log($"ステージ{stageNumber}をクリアしました");
+        //Debug.Log($"ステージ{stageNumber}をクリアしました");
 
         //PlayerPrefsにステージがクリアを保存
         PlayerPrefs.SetInt($"Stage_{stageNumber}_Cleared", 1);
@@ -39,7 +39,7 @@ public class GoalTrigger : MonoBehaviour
         }
         else
         {
-            Debug.LogError("StageClearUI がシーン内に見つかりません！");
+            //Debug.LogError("StageClearUI がシーン内に見つかりません！");
         }
     }
 
@@ -49,7 +49,10 @@ public class GoalTrigger : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isPlayerInGoal = true;
-            Debug.Log("ゴール内にいます。Wキーでクリア");
+            //Debug.Log("ゴール内にいます。Eキーでクリア");
+
+            // 頭上マーク表示
+            PlayerHeadPromptUI.Instance?.ShowPrompt();
         }
     }
 
@@ -58,6 +61,8 @@ public class GoalTrigger : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isPlayerInGoal = false;
+
+            PlayerHeadPromptUI.Instance?.HidePrompt();
         }
     }
 }

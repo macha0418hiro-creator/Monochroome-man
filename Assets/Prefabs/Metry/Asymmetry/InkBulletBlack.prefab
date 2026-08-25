@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3942729674906601498}
   m_Layer: 15
   m_Name: InkBulletBlack
-  m_TagString: Untagged
+  m_TagString: BossAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5544290051392447022, guid: 8ce3d0ea8f6aef24993a800640d549a4, type: 3}
+  m_Sprite: {fileID: 8708745966259176818, guid: 4d57ba95a23395d40a8a38bbb4adfd1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

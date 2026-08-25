@@ -35,6 +35,7 @@ public class DelayedBomb : MonoBehaviour
             if (spriteRenderer != null)
             {
                 spriteRenderer.enabled = (Mathf.FloorToInt(elapsed * 10) % 2 == 0);
+
             }
             yield return null;
         }
@@ -45,6 +46,7 @@ public class DelayedBomb : MonoBehaviour
         if (explosionEffectPrefab != null)
         {
             GameObject effect = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+            SoundManager.Instance?.PlaySE(SoundManager.SEType.Explosion);
             Destroy(effect, 2.0f); // エフェクトの自動消滅
         }
 

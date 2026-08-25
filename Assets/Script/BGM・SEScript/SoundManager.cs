@@ -42,6 +42,14 @@ public class SoundManager : MonoBehaviour
         //Enemy
         Explosion,      //爆発
         Beam,           //ビーム
+        Magic,          //魔法
+        Generate,       //生成
+        GiantBeam,      //巨大ビーム
+        BuildUp,        //ビームの溜め
+        PaintAttack,    //ペンキ
+        HomingBullet,   //追尾弾
+        Teleport,       //テレポート
+        Appearance,      //出現
 
     }
 
@@ -62,6 +70,8 @@ public class SoundManager : MonoBehaviour
         StageSelect, //ステージ選択画面
         Stage1,      //ステージ1用BGM
         Stage2,      //ステージ2用BGM
+        Stage3,      //ステージ3用BGM
+        Stage4,      //ステージ4用BGM
         Clear        //クリア画面
     }
 
@@ -186,7 +196,7 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"SE {type} がSoundManagerに登録されていません。");
+            //Debug.LogWarning($"SE {type} がSoundManagerに登録されていません。");
         }
     }
 
@@ -218,7 +228,7 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"BGM {type} がSoundManagerに登録されていません。");
+            //Debug.LogWarning($"BGM {type} がSoundManagerに登録されていません。");
         }
     }
 

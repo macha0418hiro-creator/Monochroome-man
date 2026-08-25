@@ -7,10 +7,10 @@ public class InkBullet : MonoBehaviour
     [SerializeField] private bool isWhiteInk = true; // 白インクならTrue、黒インクならFalse
 
     [Header("放物線の設定")]
-    [SerializeField] private float minUpForce = 5f;    // 上方向への最小の力
-    [SerializeField] private float maxUpForce = 8f;    // 上方向への最大の力
-    [SerializeField] private float minSideForce = -3f;  // 横方向への最小の力（左）
-    [SerializeField] private float maxSideForce = 3f;   // 横方向への最大の力（右）
+    [SerializeField] private float minUpForce = 6f;    // 上方向への最小の力
+    [SerializeField] private float maxUpForce = 9f;    // 上方向への最大の力
+    [SerializeField] private float minSideForce = -9f;  // 横方向への最小の力（左）
+    [SerializeField] private float maxSideForce = 9f;   // 横方向への最大の力（右）
 
     [Header("消滅設定")]
     [SerializeField] private float lifeTime = 4f;

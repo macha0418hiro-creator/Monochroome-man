@@ -45,7 +45,7 @@ public class PlayerCombat : MonoBehaviour
     private IEnumerator PerformAttackRoutine()
     {
         isAttacking = true;
-        Debug.Log("プレイヤーが攻撃した");
+        //Debug.Log("プレイヤーが攻撃した");
 
         //Animatorのトリガーを引いてアニメーション再生
         if (animator != null)

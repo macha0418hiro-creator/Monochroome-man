@@ -74,33 +74,33 @@ public class PlayerAttributeController : MonoBehaviour
             // ★追加：オーラによってロックされている場合は変更不可
             if (isColorLocked)
             {
-                Debug.Log("オーラによって色変更が封印されています！");
+                //Debug.Log("オーラによって色変更が封印されています！");
                 return;
             }
 
             if (isColorChanging)
             {
-                Debug.Log("色変更アニメーション中のため、変更できません！");
+                //Debug.Log("色変更アニメーション中のため、変更できません！");
                 return;
             }
 
             //モノクロの筆を持っていない場合はFキー切替不可
             if (!canSwitchColor)
             {
-                Debug.Log("モノクロの筆を持っていないため、色を変更できません！");
+                //Debug.Log("モノクロの筆を持っていないため、色を変更できません！");
                 return;
             }
 
             //ブロックをつかんでる間は色変更禁止
             if (objectPuller != null && objectPuller.IsPulling)
             {
-                Debug.Log("ブロックをつかんでる間は色を変えれません");
+                //Debug.Log("ブロックをつかんでる間は色を変えれません");
                 return;
             }
 
             if (animator != null && !animator.GetBool("isGrounded"))
             {
-                Debug.Log("空中では色を帰れません");
+                //Debug.Log("空中では色を帰れません");
                 return;
             }
 
@@ -125,7 +125,7 @@ public class PlayerAttributeController : MonoBehaviour
             PlayerDataManager.Instance.CanSwitchColor = true;
         }
 
-        Debug.Log("モノクロの筆を獲得！ Fキーで属性を自由に切り替えられるようになった！");
+        //Debug.Log("モノクロの筆を獲得！ Fキーで属性を自由に切り替えられるようになった！");
     }
 
     //外部から呼ばれる通常の色変更(エフェクト発生あり)
@@ -176,7 +176,7 @@ public class PlayerAttributeController : MonoBehaviour
 
         OnAttributeChanged?.Invoke(gameObject);
 
-        Debug.Log($"プレイヤーの立ち絵を切り替え、判定を【{layerName}】にしました。");
+        //Debug.Log($"プレイヤーの立ち絵を切り替え、判定を【{layerName}】にしました。");
     }
 
     void SpawnExplosion(float colorIndex)
@@ -201,7 +201,7 @@ public class PlayerAttributeController : MonoBehaviour
 
         SetColor(targetColor);
 
-        Debug.Log($"[PlayerAttributeController] インクにより強制的に【{targetColor}】に変更されました！");
+        //Debug.Log($"[PlayerAttributeController] インクにより強制的に【{targetColor}】に変更されました！");
     }
 
     // ★追加：オーラ用（指定色に強制変更し、一定時間Fキー等をロックする）
@@ -218,12 +218,12 @@ public class PlayerAttributeController : MonoBehaviour
     private IEnumerator LockColorRoutine(float duration)
     {
         isColorLocked = true;
-        Debug.Log($"【属性ロック】{duration}秒間、属性の切り替えが不可になりました！");
+        //Debug.Log($"【属性ロック】{duration}秒間、属性の切り替えが不可になりました！");
 
         yield return new WaitForSeconds(duration);
 
         isColorLocked = false;
-        Debug.Log("【属性ロック解除】属性の切り替えが可能になりました。");
+        //Debug.Log("【属性ロック解除】属性の切り替えが可能になりました。");
     }
 
     private IEnumerator ColorChangeCooldownRoutine()

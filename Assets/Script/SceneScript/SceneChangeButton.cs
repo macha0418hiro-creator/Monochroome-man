@@ -22,7 +22,7 @@ public class SceneChangeButton : MonoBehaviour
     {
         if (string.IsNullOrEmpty(targetSceneName))
         {
-            Debug.LogWarning("遷移先のScene名が空です!設定してください。");
+            //Debug.LogWarning("遷移先のScene名が空です!設定してください。");
             return;
         }
 

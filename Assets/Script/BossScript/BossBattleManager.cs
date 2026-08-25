@@ -53,10 +53,12 @@ public class BossBattleManager : MonoBehaviour
     //ボス戦開始
     private void StartBossSequence()
     {
-        Debug.Log("ボス戦開始");
+        //Debug.Log("ボス戦開始");
 
         if(bossRoomEntranceWall != null)
         {
+            SoundManager.Instance?.PlaySE(SoundManager.SEType.Appearance);
+
             bossRoomEntranceWall.SetActive(true);
         }
 
@@ -75,7 +77,7 @@ public class BossBattleManager : MonoBehaviour
     private void FinishedBossBattle()
     {
         isBattleFinished = true;
-        Debug.Log("壁が解除された");
+        //Debug.Log("壁が解除された");
 
         if (bossRoomExitWall != null) bossRoomExitWall.SetActive(false);
     }

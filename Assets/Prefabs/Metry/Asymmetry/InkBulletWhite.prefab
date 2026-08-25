@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 922942490508004787}
   m_Layer: 14
   m_Name: InkBulletWhite
-  m_TagString: Untagged
+  m_TagString: BossAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3578295701615830816, guid: d8cc93566fc087a4687124334626fdd9, type: 3}
+  m_Sprite: {fileID: -4299640743032469382, guid: 4d57ba95a23395d40a8a38bbb4adfd1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed85712ea4ef3d94bbc5bc7cbf808654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InkBullet
+  isWhiteInk: 1
   minUpForce: 5
   maxUpForce: 8
   minSideForce: -3
