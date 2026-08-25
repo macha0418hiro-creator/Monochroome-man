@@ -11,7 +11,7 @@ public class Noir : BaseBossWizard
 
     protected override IEnumerator CustomAttackWithVariation()
     {
-        Debug.Log("Noir変化技");
+        //Debug.Log("Noir変化技");
 
         GameObject attackObj = Instantiate(areaAttackObject, transform.position, Quaternion.identity);
 
@@ -31,7 +31,7 @@ public class Noir : BaseBossWizard
 
     protected override IEnumerator UniqueSpecialAttack()
     {
-        Debug.Log("Noir専用技");
+        //Debug.Log("Noir専用技");
 
         if (explosiveBulletObject != null)
         {

@@ -63,6 +63,8 @@ public class AreaAttackEffect : MonoBehaviour
         VisualSetup currentSetup = isWhiteBoss ? setupForWhiteBoss : setupForBlackBoss;
         spriteRenderer.sprite = currentSetup.warningSprite;
 
+        SoundManager.Instance?.PlaySE(SoundManager.SEType.BuildUp);
+
         yield return new WaitForSeconds(warningDuration);
 
         //ボスが倒されて既に削除されていた場合は処理を中断
@@ -79,6 +81,8 @@ public class AreaAttackEffect : MonoBehaviour
         {
             if (donutCollider != null) donutCollider.enabled = true;
         }
+
+        SoundManager.Instance?.PlaySE(SoundManager.SEType.GiantBeam);
 
         yield return new WaitForSeconds(attackDuration);
 

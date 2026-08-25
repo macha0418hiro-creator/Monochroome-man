@@ -35,6 +35,9 @@ public class TreasureChest : MonoBehaviour
     {
         isOpened = true;
 
+        // 開けたら頭上マークを消す
+        PlayerHeadPromptUI.Instance?.HidePrompt();
+
         //画像を開いた状態(openedSprite)に差し替える
         if (openedSprite != null && spriteRenderer != null)
         {
@@ -44,23 +47,26 @@ public class TreasureChest : MonoBehaviour
         //アイテム獲得処理
         if (itemInside != null)
         {
-            Debug.Log($"宝箱を開けた！ アイテム『{itemInside.itemName}』（ID: {itemInside.itemID}）を手に入れた！");
+            //Debug.Log($"宝箱を開けた！ アイテム『{itemInside.itemName}』（ID: {itemInside.itemID}）を手に入れた！");
 
             ItemGetUI.Instance.ShowItemGetPopup(itemInside, playerObject);
         }
 
         else
         {
-            Debug.LogWarning("宝箱は空っぽでした…（ItemDataが未設定です）");
+            //Debug.LogWarning("宝箱は空っぽでした…（ItemDataが未設定です）");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !isOpened)
         {
             isPlayerNear = true;
             playerObject = collision.gameObject;
+
+            // 頭上マーク表示
+            PlayerHeadPromptUI.Instance?.ShowPrompt();
         }
     }
 
@@ -69,6 +75,8 @@ public class TreasureChest : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isPlayerNear = false;
+
+            PlayerHeadPromptUI.Instance?.HidePrompt();
         }
     }
 }

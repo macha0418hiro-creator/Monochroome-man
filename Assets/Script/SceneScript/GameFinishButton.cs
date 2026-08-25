@@ -15,14 +15,15 @@ public class GameFinishButton : MonoBehaviour
     }
 
     //ゲーム終了処理
-    public void OnClickFinish()
+    // ゲーム終了ボタンに割り当てているメソッド
+    public void OnClickGameFinish()
     {
-        Debug.Log("ゲームが終了されました");
-
-        //Unityエディタ上の再生を止める
+#if UNITY_EDITOR
+        // Unityエディタ上で実行中の場合は、再生を停止する
         UnityEditor.EditorApplication.isPlaying = false;
-
-        //アプリ自体を落とす(アプリとして完成していたら)
+#else
+        // ビルドされたゲーム本編で実行中の場合は、アプリを終了する
         Application.Quit();
+#endif
     }
 }

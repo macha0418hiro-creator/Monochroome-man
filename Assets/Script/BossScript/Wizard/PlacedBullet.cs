@@ -47,6 +47,8 @@ public class PlacedBullet : MonoBehaviour
         float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
+        SoundManager.Instance?.PlaySE(SoundManager.SEType.Magic);
+
         isLaunched = true;
     }
 

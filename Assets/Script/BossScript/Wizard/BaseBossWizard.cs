@@ -46,7 +46,7 @@ public abstract class BaseBossWizard : MonoBehaviour
     //ボスの行動(ループ)に入れる
     public void StartBossBattle()
     {
-        Debug.Log($"{gameObject.name}が戦闘開始");
+        //Debug.Log($"{gameObject.name}が戦闘開始");
         StartCoroutine(BossActionLoop());
     }
 
@@ -143,7 +143,7 @@ public abstract class BaseBossWizard : MonoBehaviour
         // もし候補が空(専用技を専用の位置以外で選んだら)全技からランダム
         if (availableAttacks.Count == 0)
         {
-            Debug.Log("技が空");
+            //Debug.Log("技が空");
             for (int i = 0; i < totalAttacks; i++) availableAttacks.Add(i);
         }
 
@@ -197,20 +197,20 @@ public abstract class BaseBossWizard : MonoBehaviour
 
     private IEnumerator TeleportRoutine(Vector3 targetPosition)
     {
-        Debug.Log($"{gameObject.name} がテレポートを開始します。");
+        //Debug.Log($"{gameObject.name} がテレポートを開始します。");
 
         // 座標を書き換え（一瞬で移動）
         transform.position = targetPosition;
 
         yield return new WaitForSeconds(0.5f); // テレポート直後の硬直時間
 
-        Debug.Log($"{gameObject.name} がテレポートを完了しました。");
+        //Debug.Log($"{gameObject.name} がテレポートを完了しました。");
         isActionRunning = false;
     }
 
     protected IEnumerator AttackA()
     {
-        Debug.Log($"{gameObject.name} の基本攻撃A");
+        //Debug.Log($"{gameObject.name} の基本攻撃A");
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
@@ -226,6 +226,8 @@ public abstract class BaseBossWizard : MonoBehaviour
                 //プレイヤーの方向を向くための角度計算
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 Quaternion spawnRotation = Quaternion.Euler(0, 0, angle);
+
+                SoundManager.Instance?.PlaySE(SoundManager.SEType.HomingBullet);
 
                 //弾を生成する処理
                 GameObject bulletObj = Instantiate(homingBulletObject, transform.position, spawnRotation);
@@ -249,7 +251,7 @@ public abstract class BaseBossWizard : MonoBehaviour
 
     protected IEnumerator AttackB()
     {
-        Debug.Log($"{gameObject.name} の基本攻撃B");
+        //Debug.Log($"{gameObject.name} の基本攻撃B");
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
@@ -285,6 +287,8 @@ public abstract class BaseBossWizard : MonoBehaviour
                 Transform bossSensor = this.transform.Find("DamageSensor");
                 bulletObj.layer = bossSensor.gameObject.layer;
             }
+
+            SoundManager.Instance?.PlaySE(SoundManager.SEType.Generate);
 
             yield return new WaitForSeconds(1.0f);
 
@@ -324,7 +328,7 @@ public abstract class BaseBossWizard : MonoBehaviour
     /// </summary>
     public virtual void OnBossDeath()
     {
-        Debug.Log($"{gameObject.name} は倒されました。攻撃コルーチンを停止し、残存弾を破棄します。");
+        //Debug.Log($"{gameObject.name} は倒されました。攻撃コルーチンを停止し、残存弾を破棄します。");
 
         // 1. 進行中の攻撃コルーチン（弾の連射や待ち時間）を即座に全停止
         StopAllCoroutines();

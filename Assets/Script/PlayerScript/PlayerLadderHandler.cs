@@ -45,7 +45,7 @@ public class PlayerLadderHandler : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("属性が合わないため掴めません");
+                    //Debug.Log("属性が合わないため掴めません");
                 }
             }
         }
@@ -98,7 +98,7 @@ public class PlayerLadderHandler : MonoBehaviour
             animator.SetBool("isClimbing", true);
         }
 
-        Debug.Log("ハシゴに掴まった");
+        //Debug.Log("ハシゴに掴まった");
     }
 
     //ハシゴから離れる処理
@@ -120,7 +120,7 @@ public class PlayerLadderHandler : MonoBehaviour
             animator.SetFloat("climbSpeed", 1f);     //速度リセット
         }
 
-        Debug.Log("ハシゴから離れた");
+        //Debug.Log("ハシゴから離れた");
     }
 
     //Ladder.csから範囲内に入ったか通知を受けるメソッド

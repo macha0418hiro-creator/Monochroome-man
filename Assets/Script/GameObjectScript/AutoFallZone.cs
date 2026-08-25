@@ -39,7 +39,7 @@ public class AutoFallZone : MonoBehaviour
             playerHealth.TakeDamage(fallDamage);
         }
         
-        Debug.Log($"背景範囲外へ転落！ {fallDamage} のダメージ");
+        //Debug.Log($"背景範囲外へ転落！ {fallDamage} のダメージ");
 
         SoundManager.Instance?.PlaySE(SoundManager.SEType.Damage);
 

@@ -14,6 +14,7 @@ public class ObjectPuller : MonoBehaviour
     private Animator animator;
     private Rigidbody2D playerRb;
     private FixedJoint2D attachJoint = null;             //関節コンポーネント保存(blockの物理演算を残したまま運ぶため)
+    private bool wasNearBlock = false;                   // 前回ブロックを検知していたかのフラグ
 
     //他のScriptやAnimaterから状態を受け取る
     public bool IsPulling {  get; private set; } = false;
@@ -32,6 +33,50 @@ public class ObjectPuller : MonoBehaviour
         {
             animator.SetBool("IsPulling", IsPulling);
         }
+
+        // 掴んでいない時だけブロック近接チェック
+        if (!IsPulling)
+        {
+            CheckNearBlockForUI();
+        }
+    }
+
+    private void CheckNearBlockForUI()
+    {
+        Vector2 direction = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, checkDistance, blockLayers);
+
+        bool canGrab = false;
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject == this.gameObject) continue;
+
+            if (hit.collider != null && hit.collider.CompareTag("PushableBlock"))
+            {
+                string playerLayerName = LayerMask.LayerToName(gameObject.layer);
+                string blockLayerName = LayerMask.LayerToName(hit.collider.gameObject.layer);
+                string cleanPlayerColor = playerLayerName.Replace("Player", "");
+
+                if (cleanPlayerColor != blockLayerName)
+                {
+                    canGrab = true;
+                    break;
+                }
+            }
+        }
+
+        //状態が変わった瞬間だけ Prompt を操作する（他の処理を上書きしないようにする）
+        if (canGrab && !wasNearBlock)
+        {
+            wasNearBlock = true;
+            PlayerHeadPromptUI.Instance?.ShowPrompt();
+        }
+        else if (!canGrab && wasNearBlock)
+        {
+            wasNearBlock = false;
+            PlayerHeadPromptUI.Instance?.HidePrompt();
+        }
     }
 
     public void OnGrab(InputAction.CallbackContext context)
@@ -47,7 +92,7 @@ public class ObjectPuller : MonoBehaviour
             {
                 if(playerRb != null && Mathf.Abs(playerRb.linearVelocity.x) > 0.01f)
                 {
-                    Debug.Log("移動中は手を離せません");
+                    //Debug.Log("移動中は手を離せません");
                     return;
                 }
 
@@ -94,12 +139,13 @@ public class ObjectPuller : MonoBehaviour
                         attachJoint.connectedBody = grabbedBlockRb;
                     }
 
-                    Debug.Log($"{grabbedBlock.name}をつかんだ");
+                    //Debug.Log($"{grabbedBlock.name}をつかんだ");
+                    PlayerHeadPromptUI.Instance?.HidePrompt();
                     return;
                 }
                 else
                 {
-                    Debug.Log("同じ色なのでつかめません");
+                    //Debug.Log("同じ色なのでつかめません");
                     return;
                 }
             } 
@@ -133,7 +179,7 @@ public class ObjectPuller : MonoBehaviour
         Gizmos.DrawRay(transform.position, direction * checkDistance);
     }
 
-    //ブロックを話す処理
+    //ブロックを離す処理
     public void ReleaseBlock()
     {
         if(attachJoint != null)
@@ -162,6 +208,6 @@ public class ObjectPuller : MonoBehaviour
         grabbedBlock = null;
         grabbedBlockRb = null;
         IsPulling = false;
-        Debug.Log("ブロックを離した");
+        //Debug.Log("ブロックを離した");
     }
 }

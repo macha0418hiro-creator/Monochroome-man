@@ -43,7 +43,7 @@ public class Blanc : BaseBossWizard
 
             yield return new WaitForSeconds(0.8f); // 溜め時間
 
-            float floorY = 9f; //ステージの床のY座標
+            float floorY = -80.3f; //ステージの床のY座標
             float actualFloorY = floorY + floorOffset;
             
             Vector3 bossPos = transform.position;

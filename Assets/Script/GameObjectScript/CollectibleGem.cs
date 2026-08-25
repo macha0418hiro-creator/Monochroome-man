@@ -39,7 +39,7 @@ public class CollectibleGem : MonoBehaviour
         PlayerPrefs.SetInt(saveKey, 1);
         PlayerPrefs.Save();
 
-        Debug.Log($"ステージ{stageNumber}の{gemType}の宝石をゲット");
+        //Debug.Log($"ステージ{stageNumber}の{gemType}の宝石をゲット");
 
         Destroy(gameObject);
     }

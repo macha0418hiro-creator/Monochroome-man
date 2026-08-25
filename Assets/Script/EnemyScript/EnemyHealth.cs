@@ -37,7 +37,7 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
-        Debug.Log($"{gameObject.name}は{damage}ダメージ受けた(残りHP:{currentHp})");
+        //Debug.Log($"{gameObject.name}は{damage}ダメージ受けた(残りHP:{currentHp})");
 
         OnHpChanged?.Invoke(currentHp); //HPが変化したことをUIに通知
 
@@ -56,11 +56,11 @@ public class EnemyHealth : MonoBehaviour
     {
         if (isBoss)
         {
-            Debug.Log($"Boss {gameObject.name}を倒した");
+            //Debug.Log($"Boss {gameObject.name}を倒した");
         }
         else
         {
-            Debug.Log($"Enemy {gameObject.name}を倒した");
+            //Debug.Log($"Enemy {gameObject.name}を倒した");
         }
 
         SoundManager.Instance?.PlaySE(SoundManager.SEType.Disappearance);

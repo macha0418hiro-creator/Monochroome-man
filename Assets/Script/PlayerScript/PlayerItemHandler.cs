@@ -23,7 +23,7 @@ public class PlayerItemHandler : MonoBehaviour
     {
         if (item == null) return;
 
-        Debug.Log($"アイテム【{item.itemName}】の効果を発動！");
+        //Debug.Log($"アイテム【{item.itemName}】の効果を発動！");
 
         switch (item.itemType)
         {
@@ -49,12 +49,14 @@ public class PlayerItemHandler : MonoBehaviour
                 break;
 
             case ItemType.HealHeart:
-                /* 
                 if (playerHealth != null)
                 {
-                    playerHealth.Heal(1);
+                    bool wasHealed = playerHealth.Heal(1);
+                    if (!wasHealed)
+                    {
+                        return;
+                    }
                 }
-                */
                 break;
         }
     }

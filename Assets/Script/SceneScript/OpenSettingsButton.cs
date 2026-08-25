@@ -31,7 +31,7 @@ public class OpenSettingsButton : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("設定パネル (SettingsWindow) が見つかりません。");
+                //Debug.LogWarning("設定パネル (SettingsWindow) が見つかりません。");
             }
         }
     }

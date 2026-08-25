@@ -57,6 +57,7 @@ MonoBehaviour:
   attackRadius: 4
   warningDuration: 1.5
   attackDuration: 1
+  bossWizard: {fileID: 0}
 --- !u!58 &7420953151093440282
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -92,7 +93,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 4
+  m_Radius: 0.5
 --- !u!60 &2569968955261223994
 PolygonCollider2D:
   m_ObjectHideFlags: 0

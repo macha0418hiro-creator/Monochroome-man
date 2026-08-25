@@ -56,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
         if (isInvicible) return;
 
         currentHp -= damageAmount;
-        Debug.Log($"プレイヤーがダメージ! 残りHP{currentHp}");
+        //Debug.Log($"プレイヤーがダメージ! 残りHP{currentHp}");
 
         SoundManager.Instance?.PlaySE(SoundManager.SEType.Damage);
 
@@ -98,7 +98,7 @@ public class PlayerHealth : MonoBehaviour
         if (isInvicible) return;
 
         currentHp -= damageAmount;
-        Debug.Log($"プレイヤーがダメージ! 残りHP{currentHp}");
+        //Debug.Log($"プレイヤーがダメージ! 残りHP{currentHp}");
 
         // HP UI更新
         if (hpUI != null)
@@ -115,6 +115,28 @@ public class PlayerHealth : MonoBehaviour
             // ノックバックは発生させず、無敵・点滅処理だけ呼び出す
             StartCoroutine(DamageRoutine());
         }
+    }
+
+    //HP回復処理
+    public bool Heal(int heal)
+    {
+        // 既にHPが満タンなら回復しない
+        if (currentHp >= maxHp)
+        {
+            //Debug.Log("HPが満タンのため回復できません");
+            return false;
+        }
+
+        // HPを加算し、maxHpを超えないように制限する
+        currentHp = Mathf.Min(currentHp + heal, maxHp);
+
+        // UIを更新
+        if (hpUI != null)
+        {
+            hpUI.UpdateHpUI(currentHp);
+        }
+
+        return true;
     }
 
     // 無敵時間と点滅を同時に管理
@@ -147,13 +169,13 @@ public class PlayerHealth : MonoBehaviour
 
         spriteRenderer.enabled = true;
         isInvicible = false;
-        Debug.Log("無敵時間が終了しました");
+        //Debug.Log("無敵時間が終了しました");
     }
 
 
     private void Die()
     {
-        Debug.Log("プレイヤーは倒れた！");
+        //Debug.Log("プレイヤーは倒れた！");
 
         // GameOver画面を表示
         if (gameOverManager != null)
