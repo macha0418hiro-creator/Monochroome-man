@@ -17,13 +17,11 @@ public class MashroomMove : MonoBehaviour
     private Rigidbody2D rb;
     private bool movingRight = false;    //左右の判定用
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //移動処理

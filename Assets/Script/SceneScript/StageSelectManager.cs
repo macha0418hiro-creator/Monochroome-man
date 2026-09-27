@@ -104,7 +104,7 @@ public class StageSelectManager : MonoBehaviour
     {
         if (index == 0) return true;
 
-        // ★ Stage 4 (index == 3) は Stage 1〜3 の宝石全6個が必要
+        // Stage 4 (index == 3) は Stage 1〜3 の宝石全6個が必要
         if (index == 3)
         {
             return HasAllGemsStage1To3();
@@ -199,7 +199,7 @@ public class StageSelectManager : MonoBehaviour
         // --- Stage 4 (裏ボス) の場合：間隔を広げてカウント表示 ---
         if (currentStageIndex == 3)
         {
-            // ★ 宝石の位置を広げる
+            // 宝石の位置を広げる
             if (whiteRect != null) whiteRect.anchoredPosition = stage4WhiteGemPos;
             if (blackRect != null) blackRect.anchoredPosition = stage4BlackGemPos;
 
@@ -235,7 +235,7 @@ public class StageSelectManager : MonoBehaviour
         // --- Stage 1〜3 の通常表示の場合：元の間隔に戻して通常表示 ---
         else if (currentStageIndex < stages.Count)
         {
-            // ★ 宝石の位置を通常に戻す
+            // 宝石の位置を通常に戻す
             if (whiteRect != null) whiteRect.anchoredPosition = normalWhiteGemPos;
             if (blackRect != null) blackRect.anchoredPosition = normalBlackGemPos;
 

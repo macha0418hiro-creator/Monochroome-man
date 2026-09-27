@@ -50,7 +50,6 @@ public abstract class BaseBossWizard : MonoBehaviour
         StartCoroutine(BossActionLoop());
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateAnimationState();
@@ -336,7 +335,7 @@ public abstract class BaseBossWizard : MonoBehaviour
         // 2. 画面上の "BossAttack" タグがついた弾や攻撃エリアを一括削除
         ClearAllBossAttacks();
 
-        // 3. ボス本体を消去（必要に応じて死亡アニメーション等の後に呼んでもOK）
+        // 3. ボス本体を消去
         Destroy(gameObject);
     }
 

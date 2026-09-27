@@ -370,6 +370,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHp: 1
   isBoss: 0
+  invincibilityDuration: 1
+  flashInterval: 0.1
 --- !u!1 &88546762
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,6 +2033,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHp: 3
   isBoss: 1
+  invincibilityDuration: 1
+  flashInterval: 0.1
 --- !u!114 &374893313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11340,6 +11344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHp: 5
   isBoss: 1
+  invincibilityDuration: 1.5
+  flashInterval: 0.15
 --- !u!1 &1420566218
 GameObject:
   m_ObjectHideFlags: 0
@@ -12227,6 +12233,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHp: 1
   isBoss: 0
+  invincibilityDuration: 1
+  flashInterval: 0.1
 --- !u!1 &1697264115
 GameObject:
   m_ObjectHideFlags: 0
@@ -13460,6 +13468,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHp: 3
   isBoss: 1
+  invincibilityDuration: 1
+  flashInterval: 0.1
 --- !u!114 &1787760243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14529,6 +14539,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHp: 5
   isBoss: 1
+  invincibilityDuration: 1
+  flashInterval: 0.1
 --- !u!114 &1971825823
 MonoBehaviour:
   m_ObjectHideFlags: 0

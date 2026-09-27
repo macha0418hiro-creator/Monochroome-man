@@ -27,7 +27,6 @@ public class FrogAttack : MonoBehaviour
     public bool IsAttacking => isAttacking;
     public float AttackRange => attackRange;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {  
         frogMove = GetComponent<FrogMove>();
@@ -36,12 +35,6 @@ public class FrogAttack : MonoBehaviour
         if(player != null) playerTransform = player.transform;
 
         SetTongueActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     //FrogMoveから合図をもらうと攻撃する

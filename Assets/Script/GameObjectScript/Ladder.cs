@@ -5,16 +5,9 @@ public class Ladder : MonoBehaviour
 {
     private Tilemap tilemap;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         tilemap = GetComponent<Tilemap>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     //ハシゴが掴めるか判定

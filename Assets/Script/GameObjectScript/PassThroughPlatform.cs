@@ -6,7 +6,6 @@ public class PassThroughPlatform : MonoBehaviour
 {
     private Collider2D platformCollider;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         platformCollider = GetComponent<CompositeCollider2D>();
@@ -34,7 +33,6 @@ public class PassThroughPlatform : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

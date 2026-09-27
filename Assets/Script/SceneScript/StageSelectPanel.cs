@@ -10,18 +10,6 @@ public class StageSelectPanel : MonoBehaviour
     [Header("クリア時に表示するUI")]
     [SerializeField] private GameObject clearIndicator;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnEnable()
     {
         UpdateItemUI();

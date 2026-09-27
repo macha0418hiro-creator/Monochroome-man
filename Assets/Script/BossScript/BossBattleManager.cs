@@ -14,13 +14,6 @@ public class BossBattleManager : MonoBehaviour
     private bool isBattleStarted = false;
     private bool isBattleFinished = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     private void Update()
     {
         if(isBattleStarted && !isBattleFinished)

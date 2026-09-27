@@ -12,7 +12,6 @@ public class PauseManager : MonoBehaviour
 
     public static bool IsPaused { get; set; } = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //シーン開始時にリセット
@@ -25,7 +24,6 @@ public class PauseManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)

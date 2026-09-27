@@ -16,11 +16,11 @@ public class PlayerHealth : MonoBehaviour
     private bool isInvicible;                                    //現在無敵かどうか
 
     [Header("点滅エフェクト設定")]
-    [SerializeField] private SpriteRenderer spriteRenderer;     //プレイヤーのSpriteRenderer
-    [SerializeField] private float blinkInterval = 0.1f;               //点滅の速さ
+    [SerializeField] private SpriteRenderer spriteRenderer;      //プレイヤーのSpriteRenderer
+    [SerializeField] private float blinkInterval = 0.1f;         //点滅の速さ
 
     [Header("ノックバック設定")]
-    [SerializeField] private float knockbackForce = 0.8f;       //ノックバックの強さ
+    [SerializeField] private float knockbackForce = 0.8f;        //ノックバックの強さ
 
     [Header("連動するUI")]
     [SerializeField] private PlayerHpUI hpUI;
@@ -41,12 +41,6 @@ public class PlayerHealth : MonoBehaviour
         {
             hpUI.UpdateHpUI(currentHp);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     //外部(エネミーなど)からダメージを受ける処理
@@ -76,7 +70,6 @@ public class PlayerHealth : MonoBehaviour
         knockbackDirection = knockbackDirection.normalized;
 
         // 3. 瞬間的な力を加える（ジャンプと同じ Impulse）
-        // 一度速度をリセットしてから力を加えると、移動入力に負けずに綺麗に吹っ飛ぶらしい
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
 

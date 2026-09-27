@@ -32,12 +32,6 @@ public class PlacedBullet : MonoBehaviour
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
     //弾を配置する処理
     public void Launch(Vector3 playerPosition)
     {
@@ -52,7 +46,6 @@ public class PlacedBullet : MonoBehaviour
         isLaunched = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isLaunched)

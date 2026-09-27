@@ -28,7 +28,6 @@ public class FrogMove : MonoBehaviour
     private bool wasGroundedLastFrame = true;   //着地検知
     private float jumpTimer = 0f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -45,7 +44,6 @@ public class FrogMove : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckGround();

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class EnemyAttributeController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public enum EnemyColor
     {
         White,
@@ -26,7 +25,6 @@ public class EnemyAttributeController : MonoBehaviour
 
     private Animator animator;
 
-
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -34,7 +32,6 @@ public class EnemyAttributeController : MonoBehaviour
         ApplyAttribute(currentAttribute);
     }
 
-    // Update is called once per frame
     void Update()
     {
         //アニメーターに現在の色（白 = 0, 黒 = 1）を伝える

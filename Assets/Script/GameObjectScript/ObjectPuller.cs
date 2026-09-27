@@ -19,14 +19,12 @@ public class ObjectPuller : MonoBehaviour
     //他のScriptやAnimaterから状態を受け取る
     public bool IsPulling {  get; private set; } = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
         playerRb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (animator != null)

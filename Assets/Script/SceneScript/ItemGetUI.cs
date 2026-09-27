@@ -15,18 +15,6 @@ public class ItemGetUI : MonoBehaviour
     private ItemData currentItem;
     private GameObject playerObj;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void Awake()
     {
         Instance = this;

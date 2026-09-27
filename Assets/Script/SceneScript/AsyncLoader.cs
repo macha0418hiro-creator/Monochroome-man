@@ -15,7 +15,6 @@ public class AsyncLoader : MonoBehaviour
     private  bool isLoadCompleted = false;
     private AsyncOperation asyncOperation;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (loadingText != null) loadingText.text = "";
@@ -23,7 +22,6 @@ public class AsyncLoader : MonoBehaviour
         StartCoroutine(LoadSceneRoutine());
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(isLoadCompleted)
@@ -68,7 +66,7 @@ public class AsyncLoader : MonoBehaviour
             if(asyncOperation.progress >= 0.9f)
             {
                 isLoadCompleted = true;
-                if (loadingText != null) loadingText.text = "COMPLETE";
+                if (loadingText != null) loadingText.text = "クリックして進む";
                 if (textAnyKey != null) textAnyKey.SetActive(true); 
             }
 

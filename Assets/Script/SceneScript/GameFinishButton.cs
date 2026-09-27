@@ -2,18 +2,6 @@ using UnityEngine;
 
 public class GameFinishButton : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     //ゲーム終了処理
     // ゲーム終了ボタンに割り当てているメソッド
     public void OnClickGameFinish()

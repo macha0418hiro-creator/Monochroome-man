@@ -16,7 +16,6 @@ public class PlayerCombat : MonoBehaviour
     private bool isAttacking = false;
     private Animator animator;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -27,7 +26,6 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (PauseManager.IsPaused) return;

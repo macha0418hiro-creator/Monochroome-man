@@ -319,11 +319,11 @@ public class Symmetry : BaseBossMetry
             }
         }
 
-        // ★ 3. オーラ演出自体は1.0秒で消去（演出時間はお好みで調整してください）
+        // 3. オーラ演出自体は1.0秒で消去
         yield return new WaitForSeconds(1.0f);
         if (auraInstance != null) Destroy(auraInstance);
 
-        // ★ 4. ボス側の攻撃後の隙時間（必要に応じて待機時間を調整）
+        // 4. ボス側の攻撃後の隙時間
         yield return new WaitForSeconds(1.0f);
     }
 

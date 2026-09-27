@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerContoroller : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     [System.Serializable]
     public struct PlayerStatus
     {
@@ -27,6 +26,7 @@ public class PlayerContoroller : MonoBehaviour
     //直前に接地していた位置を記憶する変数
     private Vector3 lastGroundedPosition;
     public Vector3 LastGroundedPosition => lastGroundedPosition;
+    private float lastGroundedDirection = 1f;   //最後に入力された方向（1:右,2:左）
 
     void Start() 
     {
@@ -79,6 +79,22 @@ public class PlayerContoroller : MonoBehaviour
         {
             transform.localScale = new Vector3(Mathf.Sign(moveInput.x), 1, 1);
         }
+
+        // 地面に足がついている間だけ、その座標と向きを記憶し続ける
+        if (isGrounded)
+        {
+            lastGroundedPosition = transform.position;
+
+            // 移動入力がある場合はその方向、入力がなければ現在の向きを記憶
+            if (moveInput.x != 0)
+            {
+                lastGroundedDirection = Mathf.Sign(moveInput.x);
+            }
+            else
+            {
+                lastGroundedDirection = Mathf.Sign(transform.localScale.x);
+            }
+        }
     }
 
     private void CheckGroundedWithTag()
@@ -119,8 +135,15 @@ public class PlayerContoroller : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
         }
 
+        // 復帰位置の計算
+        float backOffset = 1.0f; // 崖の内側に戻す距離
+        Vector3 safePosition = lastGroundedPosition;
+
+        // 「地面に接地していた時点の進行方向」の逆へ押し戻す
+        safePosition.x -= lastGroundedDirection * backOffset;
+
         //記憶しておいた最後に接地していた位置へ移動し少し浮かせる(スタック防止)
-        transform.position = lastGroundedPosition + Vector3.up * 0.2f;
+        transform.position = safePosition + Vector3.up * 0.2f;
     }
 
     public void OnMove(InputAction.CallbackContext context) //移動処理

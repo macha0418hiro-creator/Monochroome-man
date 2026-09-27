@@ -15,7 +15,6 @@ public class BossOffscreenIndicator : MonoBehaviour
     [Header("画面端とアイコンとの余白")]
     [SerializeField] private float edgePadding = 50f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         if(mainCamera == null)

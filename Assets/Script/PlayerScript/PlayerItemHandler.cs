@@ -5,17 +5,10 @@ public class PlayerItemHandler : MonoBehaviour
     private PlayerAttributeController attributeController;
     private PlayerHealth playerHealth;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         attributeController = GetComponent<PlayerAttributeController>();
         playerHealth = GetComponent<PlayerHealth>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     //アイテム入手時の処理

@@ -22,7 +22,7 @@ public class Asymmetry : BaseBossMetry
     [SerializeField] private GameObject halfBeamWarningBlackPrefab; // 黒ビーム用の予告Prefab
     [SerializeField] private float warningDuration = 0.8f;          // 予告を表示する時間（秒）
 
-    //連続攻撃防止用の変数
+    // 連続攻撃防止用の変数
     private int lastAttackType = -1;
     private int consecutiveCount = 0;
 

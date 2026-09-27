@@ -26,7 +26,6 @@ public class AreaAttackEffect : MonoBehaviour
     private CircleCollider2D circleCollider;    //白の攻撃範囲
     private PolygonCollider2D donutCollider;    //黒の攻撃範囲
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (bossWizard == null)
@@ -35,7 +34,6 @@ public class AreaAttackEffect : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (bossWizard == null)

@@ -14,18 +14,6 @@ public class FrogTongueVisual : MonoBehaviour
     [SerializeField] private Sprite blackTongueTip;
     [SerializeField] private Sprite blackTongueShaft;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     //EnemyAttributeControlleから呼び出される関数
     public void ChangeTongueColor(EnemyAttributeController.EnemyColor color)
     {

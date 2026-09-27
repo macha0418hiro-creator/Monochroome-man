@@ -7,8 +7,6 @@ using UnityEngine.Assemblies;
 
 public class PlayerHpUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
     [Header("ハートのImageコンポーネントを左から順に表示")]
     [SerializeField] private List<Image> heartImages = new List<Image>();
 
@@ -23,17 +21,6 @@ public class PlayerHpUI : MonoBehaviour
     private Sprite currentFullSprite;
     private Sprite currentEmptySprite;
     private int lastHp;
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void Awake()
     {

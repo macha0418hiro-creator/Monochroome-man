@@ -38,7 +38,7 @@ public class PlayerAttributeController : MonoBehaviour
     [SerializeField] private float colorChangeCooldown = 0.7f;
 
     private bool isColorChanging = false;   //連打防止用フラグ
-    private bool isColorLocked = false;     // ★追加：オーラ等による色変更封印フラグ
+    private bool isColorLocked = false;     //オーラ等による色変更封印フラグ
 
     private ObjectPuller objectPuller;
     private PlayerContoroller playerContoroller;
@@ -60,7 +60,6 @@ public class PlayerAttributeController : MonoBehaviour
         SetColorFloat(currentColor, spawnEffect: false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (PauseManager.IsPaused)
@@ -71,7 +70,7 @@ public class PlayerAttributeController : MonoBehaviour
         //Fキーが押されたときに色を変更
         if (Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
         {
-            // ★追加：オーラによってロックされている場合は変更不可
+            //オーラによってロックされている場合は変更不可
             if (isColorLocked)
             {
                 //Debug.Log("オーラによって色変更が封印されています！");
@@ -204,7 +203,7 @@ public class PlayerAttributeController : MonoBehaviour
         //Debug.Log($"[PlayerAttributeController] インクにより強制的に【{targetColor}】に変更されました！");
     }
 
-    // ★追加：オーラ用（指定色に強制変更し、一定時間Fキー等をロックする）
+    //オーラ用（指定色に強制変更し、一定時間Fキー等をロックする）
     public void ApplyAuraColorLock(bool toWhite, float lockDuration)
     {
         // 1. 強制的に色変更
@@ -214,7 +213,7 @@ public class PlayerAttributeController : MonoBehaviour
         StartCoroutine(LockColorRoutine(lockDuration));
     }
 
-    // ★追加：属性ロック管理コルーチン
+    //属性ロック管理コルーチン
     private IEnumerator LockColorRoutine(float duration)
     {
         isColorLocked = true;

@@ -22,7 +22,7 @@ public abstract class BaseBossMetry : MonoBehaviour
         // まず自身（Asymmetry）から EnemyHealth を探す
         enemyHealth = GetComponent<EnemyHealth>();
 
-        // 自身になければ、子（DamageSensor）から探す（フォールバック）
+        // 自身になければ、子（DamageSensor）から探す
         if (enemyHealth == null)
         {
             enemyHealth = GetComponentInChildren<EnemyHealth>();

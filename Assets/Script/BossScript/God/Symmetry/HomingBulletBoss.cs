@@ -31,8 +31,6 @@ public class HomingBulletBoss : MonoBehaviour
         {
             playerTransform = player.transform;
         }
-
-        // 注意: Destroy(gameObject, totalLifeTime) は爆発処理を挟むため削除し、Updateで時間管理します
     }
 
     private void Update()
@@ -75,7 +73,6 @@ public class HomingBulletBoss : MonoBehaviour
         // プレイヤーまたは地面に当たったら爆発
         if (collision.CompareTag("Player") || collision.CompareTag("Ground"))
         {
-            // ※もしプレイヤーに直接ダメージを与える処理があればここで行います
             Explode();
         }
     }
